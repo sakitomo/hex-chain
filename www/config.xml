@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+	<widget xmlns   = "http://www.w3.org/ns/widgets"
+		xmlns:gap   = "http://phonegap.com/ns/1.0"
+		xmlns:android   = "http://schemas.android.com/apk/res/android"
+		id          = "com.hellofrontier.HexChain"
+		versionCode = "1"
+		version     = "1.0.0" >
+
+	<name>IPv4Calc</name>
+
+	<description>
+		Hex Carry Chain Generator
+	</description>
+
+	<author href="https://build.phonegap.com" email="sakitomoo@gmail.com">
+		Tomoko Osaki
+	</author>
+
+	<gap:platform name="android" />
+
+	<preference name="orientation" value="portrait" />
+
+</widget>
