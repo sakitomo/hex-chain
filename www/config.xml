@@ -6,7 +6,7 @@
 		versionCode = "1"
 		version     = "1.0.0" >
 
-	<name>IPv4Calc</name>
+	<name>HexChain</name>
 
 	<description>
 		Hex Carry Chain Generator
