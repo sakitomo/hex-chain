@@ -112,6 +112,7 @@ function generate() {
 	for ( i = 0; i < max; i++ ) {
 		inner += '<TD class="tdColumn"><SPAN id="mpl' + i + '"></SPAN></TD>';
 	}
+	inner += '<TD class="tdColumn"></TD>';
 	inner += '</TR>';
 
 	inner += '<TR>';
@@ -121,6 +122,7 @@ function generate() {
 	for ( i = 0; i < max; i++ ) {
 		inner += '<TD class="tdColumn tdColUnder">&#160;&#160;</TD>';
 	}
+	inner += '<TD class="tdColumn tdColUnder">&#160;</TD>';
 	inner += '</TR>';
 
 	inner += '<TR>';
@@ -130,6 +132,7 @@ function generate() {
 	for ( i = 0; i < max; i++ ) {
 		inner += '<TD class="tdColumn"><SPAN id="pro' + i + '"></SPAN></TD>';
 	}
+	inner += '<TD class="tdColumn"></TD>';
 	inner += '</TR>';
 
 	inner += '<TR id="carry">';
@@ -139,6 +142,7 @@ function generate() {
 	for ( i = 0; i < max; i++ ) {
 		inner += '<TD class="tdUpper"><SPAN id="car' + i + '"></SPAN></TD>';
 	}
+	inner += '<TD class="tdColumn"></TD>';
 	inner += '</TR>';
 
 	inner += '</TABLE>';
