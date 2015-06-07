@@ -71,6 +71,8 @@ var arrMul = new Array(max);
 var arrPro = new Array(max);
 var arrCar = new Array(max);
 
+var isSleep;
+
 
 jQuery(function ($) {
 	generate();
@@ -78,11 +80,15 @@ jQuery(function ($) {
 	calculate();
 	display();
 	$("div.divNum input:button").click(function(){
-		if ( verify($(this).val()) ) {
+		if ( !isSleep && verify($(this).val()) ) {
+			isSleep = true;
 			setTimeout( function() {
-				shift();
-				calculate();
-				display();
+				if ( isSleep ) {
+					shift();
+					calculate();
+					display();
+					isSleep = false;
+				}
 			}, 1000);
 		}
 	});
@@ -153,6 +159,7 @@ function generate() {
 function initialize() {
 	var i;
 
+	isSleep = false;
 	mLier = random_digit(2);
 	numCar = 0;
 	for ( i = 0; i < max; i++ ) {
