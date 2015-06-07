@@ -15,6 +15,14 @@ body,input,button,.ui-btn,table {
 	font-family: 'Courier New', monospace;
 }
 
+.ui-field-contain>label {
+	min-width:11em;
+}
+
+.ui-field-contain .ui-controlgroup-label,.ui-field-contain .ui-controlgroup-controls {
+	width:auto;
+}
+
 .divBody {
 	font-size: medium;
 }
@@ -61,7 +69,7 @@ body,input,button,.ui-btn,table {
 <SCRIPT language="javascript">
 <!--
 
-var mLier;
+var mLier = 0;
 var mCand;
 var numPro;
 var numCar;
@@ -159,14 +167,15 @@ function generate() {
 function initialize() {
 	var i;
 
-	isSleep = false;
-	mLier = random_digit(2);
+	mLier = random_unique(2, [ convert_hex(mLier) ]);
 	numCar = 0;
 	for ( i = 0; i < max; i++ ) {
 		arrMul[i] = '&#160;';
 		arrPro[i] = '&#160;';
 		arrCar[i] = '&#160;';
 	}
+
+	isSleep = false;
 }
 
 function random_digit(min) {
@@ -183,7 +192,7 @@ function random_digit(min) {
 	return Math.floor( Math.random() * (max-min+1) + min );
 }
 
-function random_unique(min) {
+function random_unique(min, arr) {
 	var digit, hex;
 	var i;
 
@@ -191,8 +200,8 @@ function random_unique(min) {
 		digit = random_digit(min);
 		hex = convert_hex(digit);
 
-		for ( i = 0; i < max; i++ ) {
-			if ( hex == arrMul[i] ) {
+		for ( i = 0; i < arr.length; i++ ) {
+			if ( hex == arr[i] ) {
 				digit = 0;
 				break;
 			}
@@ -205,7 +214,7 @@ function random_unique(min) {
 function calculate() {
 	var result;
 
-	mCand = random_unique(1);
+	mCand = random_unique(1, arrMul);
 	result = mCand * mLier + numCar;
 
 	numPro = result % 16;
@@ -350,7 +359,7 @@ function shift() {
 	<div role="main" class="ui-content">
 		<FORM>
 			<div class="ui-field-contain"> 
-				<label for="hard_mode">Weight on A-F:</label>
+				<label for="hard_mode">Weight digits A-F:</label>
 				<INPUT type="checkbox" id="hard_mode" value="1" data-role="flipswitch" checked>
 			</div>
 			<div class="ui-field-contain"> 
