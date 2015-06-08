@@ -2,9 +2,9 @@
 	<widget xmlns   = "http://www.w3.org/ns/widgets"
 		xmlns:gap   = "http://phonegap.com/ns/1.0"
 		xmlns:android   = "http://schemas.android.com/apk/res/android"
-		id          = "com.hellofrontier.HexChain"
-		versionCode = "10"
-		version     = "2.0.0" >
+		id          = "com.sakitomo.HexChain"
+		versionCode = "11"
+		version     = "2.0.1" >
 
 	<name>HexChain</name>
 
