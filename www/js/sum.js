@@ -69,7 +69,7 @@ $(document).on('pagecreate', '#sum', function() {
 
 		inner += '<TR>';
 		inner += '<TD class="tdTitle">addend ' + row + ':&#160;</TD>';
-		inner += '<TD class="tdColumn tdColUnder">&plus;&#160;</TD>';
+		inner += '<TD class="tdColumn tdColUnder">+&#160;</TD>';
 		inner += '<TD class="tdColumn tdColUnder"><SPAN id="addend' + (row-1) + '">&#160;</SPAN></TD>';
 		for ( i = 0; i < max; i++ ) {
 			inner += '<TD class="tdColumn tdColUnder"><SPAN id="addend' + (row-1) + '_' + i + '">&#160;&#160;</SPAN></TD>';
