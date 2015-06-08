@@ -1,0 +1,118 @@
+<HTML>
+<HEAD>
+<TITLE>Hex Carry Chain Generator</TITLE>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+
+<SCRIPT type="text/javascript" charset="utf-8" src="js/jquery-1.11.2.min.js"></SCRIPT>
+<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.5.min.js"></script>
+<SCRIPT type="text/javascript" charset="utf-8" src="js/util.js"></SCRIPT>
+<SCRIPT type="text/javascript" charset="utf-8" src="js/sum.js"></SCRIPT>
+
+</HEAD>
+
+
+<BODY>
+<div id="sum" data-role="page" data-title="Addition">
+	<div data-role="header" data-theme="b"> 
+		<a href="#" class="ui-btn ui-corner-all ui-btn-left" onclick="window.history.back();">Back</a>
+		<h1>Hex Chain</h1>
+		<a href="#" id="sumGen" class="ui-btn ui-corner-all ui-btn-right">New Game</a>
+	</div> 
+	<div role="main" class="ui-content">
+		<FORM>
+			<div id="sumHTML"> 
+			</div> 
+			<HR>
+			<div class="divBody">Select the sum:</div>
+			<div class="ui-grid-c divNum">
+				<div class="ui-block-a">
+					<input type="button" value="0" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-b">
+					<input type="button" value="1" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-c">
+					<input type="button" value="2" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-d">
+					<input type="button" value="3" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-a">
+					<input type="button" value="4" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-b">
+					<input type="button" value="5" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-c">
+					<input type="button" value="6" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-d">
+					<input type="button" value="7" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-a">
+					<input type="button" value="8" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-b">
+					<input type="button" value="9" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-c">
+					<input type="button" value="A" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-d">
+					<input type="button" value="B" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-a">
+					<input type="button" value="C" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-b">
+					<input type="button" value="D" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-c">
+					<input type="button" value="E" class="ui-btn ui-corner-all">
+				</div>
+				<div class="ui-block-d">
+					<input type="button" value="F" class="ui-btn ui-corner-all">
+				</div>
+			</div>
+		</FORM>
+	</div>
+	<div data-role="footer" data-position="fixed" data-theme="b" class="ui-bar"> 
+		<a href="#sum_cfg" class="ui-btn ui-corner-all">Config</a>
+	</div> 
+</div>
+
+<div id="sum_cfg" data-role="page" data-title="Config">
+	<div data-role="header" data-theme="b">
+		<a href="#" class="ui-btn ui-corner-all ui-btn-left" onclick="window.history.back();">Back</a>
+		<h1>Config</h1> 
+	</div> 
+	<div role="main" class="ui-content">
+		<FORM>
+			<div class="ui-field-contain">
+				<label for="row_size">Addend row size:</label>
+				<select id="row_size" data-icon="false">
+					<option value="3">3</option>
+					<option value="4" selected>4</option>
+					<option value="5">5</option>
+				</select>
+			</div>
+			<div class="ui-field-contain"> 
+				<label for="hard_mode">Weight digits A-F:</label>
+				<INPUT type="checkbox" id="hard_mode" value="1" data-role="flipswitch" checked>
+			</div>
+			<div class="ui-field-contain"> 
+				<label for="help_mode">Display carry row:</label>
+				<INPUT type="checkbox" id="help_mode" value="1" data-role="flipswitch" checked>
+			</div>
+		</FORM>
+	</div>
+</div>
+
+</BODY>
+</HTML>

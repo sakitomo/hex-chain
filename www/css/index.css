@@ -1,0 +1,49 @@
+body,input,button,.ui-btn,table {
+	font-size: large;
+	font-family: 'Courier New', monospace;
+}
+
+.ui-field-contain>label {
+	min-width:11em;
+}
+
+.ui-field-contain .ui-controlgroup-label,.ui-field-contain .ui-controlgroup-controls {
+	width:auto;
+}
+
+.divBody {
+	font-size: medium;
+}
+
+.divNum {
+	min-width:15em;
+}
+
+.divNum .ui-btn {
+	font-size: large;
+	margin: 0;
+}
+
+.tdTitle {
+	font-size: small;
+	text-align: right;
+}
+
+.tdColumn {
+	font-size: x-large;
+	text-align: right;
+}
+
+.tdUpper {
+	font-size: large;
+	text-align: center;
+	vertical-align: top;
+}
+
+.tdColUnder {
+	text-decoration: underline;
+}
+
+.tdColBold {
+	font-weight:bold;;
+}
