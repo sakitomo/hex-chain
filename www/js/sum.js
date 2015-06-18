@@ -17,7 +17,7 @@ $(document).on('pagecreate', '#sum', function() {
 	initialize();
 	calculate();
 	display();
-	$("#sum div.divNum input:button").click(function(){
+	$("#sum div.divNum .ui-btn").click(function(){
 		if ( !isSleep && verify($(this).val()) ) {
 			isSleep = true;
 			setTimeout( function() {
@@ -157,13 +157,13 @@ $(document).on('pagecreate', '#sum', function() {
 	}
 
 	function verify(val) {
-		if ( val == convert_hex(numSum) ) {
+		if ( val == numSum ) {
 			$("#addRes").html("&#10004;").css("color","green");
-			$("#addSum").html(val);
+			$("#addSum").html(convert_hex(val));
 			return true;
 		} else {
 			$("#addRes").html("&#10005;").css("color","red");
-			$("#addSum").html(val);
+			$("#addSum").html(convert_hex(val));
 			return false;
 		}
 	}

@@ -16,7 +16,7 @@ $(document).on('pagecreate', '#pro', function() {
 	initialize();
 	calculate();
 	display();
-	$("#pro div.divNum input:button").click(function(){
+	$("#pro div.divNum .ui-btn").click(function(){
 		if ( !isSleep && verify($(this).val()) ) {
 			isSleep = true;
 			setTimeout( function() {
@@ -37,7 +37,7 @@ $(document).on('pagecreate', '#pro', function() {
 	$("#proCfg").click(function(){
 		$("#clpsLier").collapsible("collapse");
 	});
-	$("#pro_cfg div.divNum input:button").click(function(){
+	$("#pro_cfg div.divNum .ui-btn").click(function(){
 		initialize($(this).val());
 		calculate();
 		display();
@@ -142,13 +142,13 @@ $(document).on('pagecreate', '#pro', function() {
 	}
 
 	function verify(val) {
-		if (val == convert_hex(numPro)) {
+		if (val == numPro) {
 			$("#mulRes").html("&#10004;").css("color","green");
-			$("#mulPro").html(val);
+			$("#mulPro").html(convert_hex(val));
 			return true;
 		} else {
 			$("#mulRes").html("&#10005;").css("color","red");
-			$("#mulPro").html(val);
+			$("#mulPro").html(convert_hex(val));
 			return false;
 		}
 	}
