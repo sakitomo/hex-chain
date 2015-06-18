@@ -15,10 +15,6 @@ body,input,button,.ui-btn,table {
 	font-size: medium;
 }
 
-.divNum {
-	min-width:15em;
-}
-
 .divNum .ui-btn {
 	font-size: large;
 	margin: 0;

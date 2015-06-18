@@ -34,6 +34,15 @@ $(document).on('pagecreate', '#pro', function() {
 		calculate();
 		display();
 	});
+	$("#proCfg").click(function(){
+		$("#clpsLier").collapsible("collapse");
+	});
+	$("#pro_cfg div.divNum input:button").click(function(){
+		initialize($(this).val());
+		calculate();
+		display();
+		window.history.back();
+	});
 	$("#help_mode").change(function(){
 		if ( $("#help_mode").prop("checked") ) {
 			$("#proCarRow").show();
@@ -92,10 +101,10 @@ $(document).on('pagecreate', '#pro', function() {
 		$("#proHTML").html(inner);
 	}
 
-	function initialize() {
+	function initialize(lier) {
 		var i;
 
-		mLier = random_unique(2, [ convert_hex(mLier) ]);
+		mLier = lier === undefined ? random_unique(2, [ convert_hex(mLier) ]) : lier;
 		numCar = 0;
 		for ( i = 0; i < max; i++ ) {
 			arrMul[i] = '&#160;';
