@@ -36,21 +36,26 @@ $(document).on('pagecreate', '#sum', function() {
 		display();
 	});
 	$("#help_mode").change(function(){
-		if ( $("#help_mode").prop("checked") ) {
-			$("#sumCarRow").show();
-		} else {
-			$("#sumCarRow").hide();
-		}
+		validate_help_mode();
 	});
 	$("#row_size").change(function(){
 		row = $("#row_size").val();
 		generate();
+		validate_help_mode();
 		initialize();
 		calculate();
 		display();
 		window.history.back();
 	});
 
+
+	function validate_help_mode() {
+		if ( $("#help_mode").prop("checked") ) {
+			$("#sumCarRow").show();
+		} else {
+			$("#sumCarRow").hide();
+		}
+	}
 
 	function generate() {
 		var i, j;
