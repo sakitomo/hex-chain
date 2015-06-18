@@ -48,6 +48,7 @@ $(document).on('pagecreate', '#sum', function() {
 		initialize();
 		calculate();
 		display();
+		window.history.back();
 	});
 
 
