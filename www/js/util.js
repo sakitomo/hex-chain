@@ -40,3 +40,24 @@ function convert_hex(dec) {
 		return dec;
 	}
 }
+
+
+function generate_pad(selector) {
+	var i, j;
+	var inner = '';
+	var val = 0;
+	var block = ['a', 'b', 'c', 'd'];
+
+	inner += '<div class="ui-grid-c divNum">';
+	for ( i = 0; i < 4; i++ ) {
+		for ( j = 0; j < 4; j++ ) {
+			inner += '<div class="ui-block-' + block[j] + '">';
+			inner += '<button value="' + val + '" class="ui-btn ui-corner-all">' + convert_hex(val) + '</button>';
+			inner += '</div>';
+			val++;
+		}
+	}
+	inner += '</div>';
+
+	selector.html(inner);
+}

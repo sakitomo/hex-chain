@@ -11,6 +11,11 @@ body,input,button,.ui-btn,table {
 	width:auto;
 }
 
+.ui-collapsible-heading .ui-btn {
+	font-size: medium;
+	font-weight:normal;
+}
+
 .divBody {
 	font-size: medium;
 }
@@ -25,7 +30,7 @@ body,input,button,.ui-btn,table {
 	text-align: right;
 }
 
-.tdColumn {
+.tdColumn,.tdColUnder,.tdColBold {
 	font-size: x-large;
 	text-align: right;
 }

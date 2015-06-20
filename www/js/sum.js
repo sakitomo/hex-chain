@@ -1,6 +1,6 @@
 $(document).on('pagecreate', '#sum', function() {
 	var max = 4;
-	var row = 4;
+	var row = $("#row_size").val();
 
 	var addend;
 	var numSum;
@@ -13,14 +13,19 @@ $(document).on('pagecreate', '#sum', function() {
 	var isSleep;
 
 
+	$.mobile.defaultPageTransition = 'none';
+
+	generate_pad($("#sumPad"));
+
 	generate();
 	initialize();
 	calculate();
 	display();
+
 	$("#sum div.divNum .ui-btn").click(function(){
 		if ( !isSleep && verify($(this).val()) ) {
 			isSleep = true;
-			setTimeout( function() {
+			setTimeout( function(){
 				if ( isSleep ) {
 					shift();
 					calculate();
@@ -35,9 +40,6 @@ $(document).on('pagecreate', '#sum', function() {
 		calculate();
 		display();
 	});
-	$("#help_mode").change(function(){
-		validate_help_mode();
-	});
 	$("#row_size").change(function(){
 		row = $("#row_size").val();
 		generate();
@@ -46,6 +48,9 @@ $(document).on('pagecreate', '#sum', function() {
 		calculate();
 		display();
 		window.history.back();
+	});
+	$("#help_mode").change(function(){
+		validate_help_mode();
 	});
 
 
@@ -58,16 +63,16 @@ $(document).on('pagecreate', '#sum', function() {
 	}
 
 	function generate() {
-		var i, j;
+		var r, c;
 		var inner = '<TABLE cellspacing="0" cellpadding="0">';
 
-		for ( i = 0; i < row-1; i++ ) {
+		for ( r = 0; r < row-1; r++ ) {
 			inner += '<TR>';
-			inner += '<TD class="tdTitle">addend ' + (i+1) + ':&#160;</TD>';
+			inner += '<TD class="tdTitle">addend ' + (r+1) + ':&#160;</TD>';
 			inner += '<TD class="tdColumn"></TD>';
-			inner += '<TD class="tdColumn"><SPAN id="addend' + i + '"></SPAN></TD>';
-			for ( j = 0; j < max; j++ ) {
-				inner += '<TD class="tdColumn"><SPAN id="addend' + i + '_' + j + '"></SPAN></TD>';
+			inner += '<TD class="tdColumn"><SPAN id="addend' + r + '"></SPAN></TD>';
+			for ( c = 0; c < max; c++ ) {
+				inner += '<TD class="tdColumn"><SPAN id="addend' + r + '_' + c + '"></SPAN></TD>';
 			}
 			inner += '<TD class="tdColumn">&#160;</TD>';
 			inner += '</TR>';
@@ -75,20 +80,20 @@ $(document).on('pagecreate', '#sum', function() {
 
 		inner += '<TR>';
 		inner += '<TD class="tdTitle">addend ' + row + ':&#160;</TD>';
-		inner += '<TD class="tdColumn tdColUnder">+&#160;</TD>';
-		inner += '<TD class="tdColumn tdColUnder"><SPAN id="addend' + (row-1) + '">&#160;</SPAN></TD>';
-		for ( i = 0; i < max; i++ ) {
-			inner += '<TD class="tdColumn tdColUnder"><SPAN id="addend' + (row-1) + '_' + i + '">&#160;&#160;</SPAN></TD>';
+		inner += '<TD class="tdColUnder">+&#160;</TD>';
+		inner += '<TD class="tdColUnder"><SPAN id="addend' + (row-1) + '">&#160;</SPAN></TD>';
+		for ( c = 0; c < max; c++ ) {
+			inner += '<TD class="tdColUnder"><SPAN id="addend' + (row-1) + '_' + c + '">&#160;&#160;</SPAN></TD>';
 		}
-		inner += '<TD class="tdColumn tdColUnder">&#160;</TD>';
+		inner += '<TD class="tdColUnder">&#160;</TD>';
 		inner += '</TR>';
 
 		inner += '<TR>';
 		inner += '<TD class="tdTitle">sum:&#160;</TD>';
 		inner += '<TD class="tdColumn"><SPAN id="addRes"></SPAN></TD>';
-		inner += '<TD class="tdColumn tdColBold"><SPAN id="addSum">?</SPAN></TD>';
-		for ( i = 0; i < max; i++ ) {
-			inner += '<TD class="tdColumn"><SPAN id="addSum' + i + '"></SPAN></TD>';
+		inner += '<TD class="tdColBold"><SPAN id="addSum">?</SPAN></TD>';
+		for ( c = 0; c < max; c++ ) {
+			inner += '<TD class="tdColumn"><SPAN id="addSum' + c + '"></SPAN></TD>';
 		}
 		inner += '<TD class="tdColumn"></TD>';
 		inner += '</TR>';
@@ -97,8 +102,8 @@ $(document).on('pagecreate', '#sum', function() {
 		inner += '<TD class="tdTitle">carry:&#160;</TD>';
 		inner += '<TD class="tdColumn"></TD>';
 		inner += '<TD class="tdColumn">&#160;</TD>';
-		for ( i = 0; i < max; i++ ) {
-			inner += '<TD class="tdUpper"><SPAN id="addCar' + i + '"></SPAN></TD>';
+		for ( c = 0; c < max; c++ ) {
+			inner += '<TD class="tdUpper"><SPAN id="addCar' + c + '"></SPAN></TD>';
 		}
 		inner += '<TD class="tdColumn"></TD>';
 		inner += '</TR>';
@@ -109,28 +114,29 @@ $(document).on('pagecreate', '#sum', function() {
 	}
 
 	function initialize() {
-		var i, j;
+		var c, r;
 
 		numCar = 0;
-		for ( i = 0; i < max; i++ ) {
-			arrAdd[i] = new Array(row);
-			for ( j = 0; j < row; j++ ) {
-				arrAdd[i][j] = '&#160;';
+		for ( c = 0; c < max; c++ ) {
+			arrAdd[c] = new Array(row);
+			for ( r = 0; r < row; r++ ) {
+				arrAdd[c][r] = '&#160;';
 			}
-			arrSum[i] = '&#160;';
-			arrCar[i] = '&#160;';
+			arrSum[c] = '&#160;';
+			arrCar[c] = '&#160;';
 		}
 
 		isSleep = false;
 	}
 
 	function calculate() {
+		var r;
 		var result = numCar;
 
 		addend = new Array(row);
-		for ( i = 0; i < row; i++ ) {
-			addend[i] = random_digit(1);
-			result += addend[i];
+		for ( r = 0; r < row; r++ ) {
+			addend[r] = random_digit(1);
+			result += addend[r];
 		}
 
 		numSum = result % 16;
@@ -138,21 +144,21 @@ $(document).on('pagecreate', '#sum', function() {
 	}
 
 	function display() {
-		var i;
+		var c, r;
 
-		for ( i = 0; i < row; i++ ) {
-			$("#addend"+i).html( convert_hex(addend[i]) );
+		for ( r = 0; r < row; r++ ) {
+			$("#addend"+r).html(convert_hex(addend[r]));
 		}
 
 		$("#addRes").html("&#160;");
 		$("#addSum").html("?");
 
-		for ( i = 0; i < max; i++ ) {
-			for ( j = 0; j < row; j++ ) {
-				$("#addend"+j+"_"+i).html( "&#160;" + arrAdd[i][j] );
+		for ( c = 0; c < max; c++ ) {
+			for ( r = 0; r < row; r++ ) {
+				$("#addend"+r+"_"+c).html("&#160;" + arrAdd[c][r]);
 			}
-			$("#addSum"+i).html( arrSum[i] );
-			$("#addCar"+i).html( arrCar[i] );
+			$("#addSum"+c).html(arrSum[c]);
+			$("#addCar"+c).html(arrCar[c]);
 		}
 	}
 
@@ -169,15 +175,16 @@ $(document).on('pagecreate', '#sum', function() {
 	}
 
 	function shift() {
+		var r;
 		var arr = new Array(row);
 
-		for ( i = 0; i < row; i++ ) {
-			arr[i] = convert_hex(addend[i]);
+		for ( r = 0; r < row; r++ ) {
+			arr[r] = convert_hex(addend[r]);
 		}
 
-		arrAdd.unshift( arr );
-		arrSum.unshift( convert_hex(numSum) );
-		arrCar.unshift( convert_hex(numCar) );
+		arrAdd.unshift(arr);
+		arrSum.unshift(convert_hex(numSum));
+		arrCar.unshift(convert_hex(numCar));
 
 		while ( arrAdd.length > max ) {
 			arrAdd.pop();
@@ -191,6 +198,4 @@ $(document).on('pagecreate', '#sum', function() {
 			arrCar.pop();
 		}
 	}
-
-
 });

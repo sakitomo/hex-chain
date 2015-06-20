@@ -12,14 +12,21 @@ $(document).on('pagecreate', '#pro', function() {
 	var isSleep;
 
 
+	$.mobile.defaultPageTransition = 'none';
+
+	generate_pad($("#proPad"));
+	generate_pad($("#proPadLier"));
+	$("#proPadLier .ui-btn:lt(2)").addClass("ui-state-disabled");
+
 	generate();
 	initialize();
 	calculate();
 	display();
-	$("#pro div.divNum .ui-btn").click(function(){
+
+	$("#proPad .ui-btn").click(function(){
 		if ( !isSleep && verify($(this).val()) ) {
 			isSleep = true;
-			setTimeout( function() {
+			setTimeout( function(){
 				if ( isSleep ) {
 					shift();
 					calculate();
@@ -37,7 +44,7 @@ $(document).on('pagecreate', '#pro', function() {
 	$("#proCfg").click(function(){
 		$("#clpsLier").collapsible("collapse");
 	});
-	$("#pro_cfg div.divNum .ui-btn").click(function(){
+	$("#proPadLier .ui-btn").click(function(){
 		initialize($(this).val());
 		calculate();
 		display();
@@ -59,27 +66,27 @@ $(document).on('pagecreate', '#pro', function() {
 		inner += '<TR>';
 		inner += '<TD class="tdTitle">multiplicand:&#160;</TD>';
 		inner += '<TD class="tdColumn"></TD>';
-		inner += '<TD class="tdColumn"><SPAN id="mpland"></SPAN></TD>';
+		inner += '<TD class="tdColumn"><SPAN id="muland"></SPAN></TD>';
 		for ( i = 0; i < max; i++ ) {
-			inner += '<TD class="tdColumn"><SPAN id="multpl' + i + '"></SPAN></TD>';
+			inner += '<TD class="tdColumn"><SPAN id="muland' + i + '"></SPAN></TD>';
 		}
 		inner += '<TD class="tdColumn"></TD>';
 		inner += '</TR>';
 
 		inner += '<TR>';
 		inner += '<TD class="tdTitle">multiplier:&#160;</TD>';
-		inner += '<TD class="tdColumn tdColUnder">&times;&#160;</TD>';
-		inner += '<TD class="tdColumn tdColUnder"><SPAN id="mplier"></SPAN></TD>';
+		inner += '<TD class="tdColUnder">&times;&#160;</TD>';
+		inner += '<TD class="tdColUnder"><SPAN id="mulier"></SPAN></TD>';
 		for ( i = 0; i < max; i++ ) {
-			inner += '<TD class="tdColumn tdColUnder">&#160;&#160;</TD>';
+			inner += '<TD class="tdColUnder">&#160;&#160;</TD>';
 		}
-		inner += '<TD class="tdColumn tdColUnder">&#160;</TD>';
+		inner += '<TD class="tdColUnder">&#160;</TD>';
 		inner += '</TR>';
 
 		inner += '<TR>';
 		inner += '<TD class="tdTitle">product:&#160;</TD>';
 		inner += '<TD class="tdColumn"><SPAN id="mulRes"></SPAN></TD>';
-		inner += '<TD class="tdColumn tdColBold"><SPAN id="mulPro">?</SPAN></TD>';
+		inner += '<TD class="tdColBold"><SPAN id="mulPro">?</SPAN></TD>';
 		for ( i = 0; i < max; i++ ) {
 			inner += '<TD class="tdColumn"><SPAN id="mulPro' + i + '"></SPAN></TD>';
 		}
@@ -104,7 +111,7 @@ $(document).on('pagecreate', '#pro', function() {
 	function initialize(lier) {
 		var i;
 
-		mLier = lier === undefined ? random_unique(2, [ convert_hex(mLier) ]) : lier;
+		mLier = lier === undefined ? random_unique(2, [convert_hex(mLier)]) : lier;
 		numCar = 0;
 		for ( i = 0; i < max; i++ ) {
 			arrMul[i] = '&#160;';
@@ -128,14 +135,14 @@ $(document).on('pagecreate', '#pro', function() {
 	function display() {
 		var i;
 
-		$("#mpland").html( convert_hex(mCand) );
-		$("#mplier").html( convert_hex(mLier) );
+		$("#muland").html(convert_hex(mCand));
+		$("#mulier").html(convert_hex(mLier));
 
 		$("#mulRes").html("&#160;");
 		$("#mulPro").html("?");
 
 		for ( i = 0; i < max; i++ ) {
-			$("#multpl"+i).html(arrMul[i]);
+			$("#muland"+i).html(arrMul[i]);
 			$("#mulPro"+i).html(arrPro[i]);
 			$("#mulCar"+i).html(arrCar[i]);
 		}
@@ -154,9 +161,9 @@ $(document).on('pagecreate', '#pro', function() {
 	}
 
 	function shift() {
-		arrMul.unshift( convert_hex(mCand) );
-		arrPro.unshift( convert_hex(numPro) );
-		arrCar.unshift( convert_hex(numCar) );
+		arrMul.unshift(convert_hex(mCand));
+		arrPro.unshift(convert_hex(numPro));
+		arrCar.unshift(convert_hex(numCar));
 
 		while ( arrMul.length > max ) {
 			arrMul.pop();
@@ -170,6 +177,4 @@ $(document).on('pagecreate', '#pro', function() {
 			arrCar.pop();
 		}
 	}
-
-
 });
