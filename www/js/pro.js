@@ -23,7 +23,7 @@ $(document).on('pagecreate', '#pro', function() {
 	calculate();
 	display();
 
-	$("#proPad .ui-btn").click(function(){
+	$("#proPad .ui-btn").tap(function(){
 		if ( !isSleep && verify($(this).val()) ) {
 			isSleep = true;
 			setTimeout( function(){
@@ -35,20 +35,23 @@ $(document).on('pagecreate', '#pro', function() {
 				}
 			}, 1000);
 		}
+		return false;
 	});
-	$("#proGen").click(function(){
+	$("#proGen").tap(function(){
 		initialize();
 		calculate();
 		display();
+		return false;
 	});
 	$("#proCfg").click(function(){
 		$("#clpsLier").collapsible("collapse");
 	});
-	$("#proPadLier .ui-btn").click(function(){
+	$("#proPadLier .ui-btn").tap(function(){
 		initialize($(this).val());
 		calculate();
 		display();
 		window.history.back();
+		return false;
 	});
 	$("#help_mode").change(function(){
 		if ( $("#help_mode").prop("checked") ) {
