@@ -1,4 +1,4 @@
-$(document).delegate('a[data-rel!=back]', 'tap', function(e){
+$(document).delegate('#proCfg', 'tap', function(e){
 	e.preventDefault();
 	var link = $(this);
 	$('body').pagecontainer('change', link.attr('href'), {
