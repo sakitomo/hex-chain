@@ -1,11 +1,3 @@
-$(document).delegate('#proCfg', 'tap', function(e){
-	e.preventDefault();
-	var link = $(this);
-	$('body').pagecontainer('change', link.attr('href'), {
-	});
-	return false;
-});
-
 $(document).on('pagecreate', '#pro', function() {
 	var mLier = 0;
 	var mCand;

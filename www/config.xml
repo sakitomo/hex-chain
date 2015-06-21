@@ -3,8 +3,8 @@
 		xmlns:gap   = "http://phonegap.com/ns/1.0"
 		xmlns:android   = "http://schemas.android.com/apk/res/android"
 		id          = "com.sakitomo.HexChain"
-		versionCode = "20"
-		version     = "2.1.2" >
+		versionCode = "21"
+		version     = "2.1.3" >
 
 	<name>HexChain</name>
 
