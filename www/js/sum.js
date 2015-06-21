@@ -1,6 +1,14 @@
+$(document).delegate('a[data-rel!=back]', 'tap', function(e){
+	e.preventDefault();
+	var link = $(this);
+	$('body').pagecontainer('change', link.attr('href'), {
+	});
+	return false;
+});
+
 $(document).on('pagecreate', '#sum', function() {
 	var max = 4;
-	var row = $("#row_size").val();
+	var row = 4;
 
 	var addend;
 	var numSum;
