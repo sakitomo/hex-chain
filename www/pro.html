@@ -18,11 +18,11 @@
 
 
 <BODY>
-<div id="pro" data-role="page" data-title="Multiplication">
-	<div data-role="header" data-theme="b"> 
-		<a href="#" class="ui-btn ui-corner-all ui-btn-left" onclick="window.history.back();">Back</a>
+<div id="pro" data-role="page" data-title="Multiplication" class="ui-nosvg">
+	<div data-role="header" data-theme="b">
+		<a href="#" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-carat-l ui-corner-all" onclick="window.history.back();">Back</a>
 		<h1>Hex Chain</h1>
-		<a href="#" id="proGen" class="ui-btn ui-corner-all ui-btn-right">New Game</a>
+		<a href="#" id="proGen" class="ui-btn ui-btn-right ui-corner-all">New Game</a>
 	</div> 
 	<div role="main" class="ui-content">
 		<div id="proHTML"></div> 
@@ -31,17 +31,17 @@
 		<div id="proPad"></div>
 	</div>
 	<div data-role="footer" data-position="fixed" data-theme="b" class="ui-bar"> 
-		<a href="#pro_cfg" id="proCfg" class="ui-btn ui-corner-all">Config</a>
+		<a href="#pro_cfg" id="proCfg" class="ui-btn ui-btn-icon-left ui-icon-gear ui-corner-all">Config</a>
 	</div> 
 </div>
 
-<div id="pro_cfg" data-role="page" data-title="Config">
+<div id="pro_cfg" data-role="page" data-title="Config" class="ui-nosvg">
 	<div data-role="header" data-theme="b">
-		<a href="#" class="ui-btn ui-corner-all ui-btn-left" onclick="window.history.back();">Back</a>
+		<a href="#" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-carat-l ui-corner-all" onclick="window.history.back();">Back</a>
 		<h1>Config</h1> 
 	</div> 
 	<div role="main" class="ui-content">
-		<div id="clpsLier" data-role="collapsible" data-iconpos="none">
+		<div id="clpsLier" data-role="collapsible" data-iconpos="right" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
 			<h4>Select multiplier:</h4>
 			<div id="proPadLier"></div>
 		</div>

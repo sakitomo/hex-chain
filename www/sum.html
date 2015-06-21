@@ -18,11 +18,11 @@
 
 
 <BODY>
-<div id="sum" data-role="page" data-title="Addition">
+<div id="sum" data-role="page" data-title="Addition" class="ui-nosvg">
 	<div data-role="header" data-theme="b"> 
-		<a href="#" class="ui-btn ui-corner-all ui-btn-left" onclick="window.history.back();">Back</a>
+		<a href="#" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-carat-l ui-corner-all" onclick="window.history.back();">Back</a>
 		<h1>Hex Chain</h1>
-		<a href="#" id="sumGen" class="ui-btn ui-corner-all ui-btn-right">New Game</a>
+		<a href="#" id="sumGen" class="ui-btn ui-btn-right ui-corner-all">New Game</a>
 	</div> 
 	<div role="main" class="ui-content">
 		<div id="sumHTML"></div> 
@@ -31,13 +31,13 @@
 		<div id="sumPad"></div>
 	</div>
 	<div data-role="footer" data-position="fixed" data-theme="b" class="ui-bar"> 
-		<a href="#sum_cfg" class="ui-btn ui-corner-all">Config</a>
+		<a href="#sum_cfg" id="sumCfg" class="ui-btn ui-btn-icon-left ui-icon-gear ui-corner-all">Config</a>
 	</div> 
 </div>
 
-<div id="sum_cfg" data-role="page" data-title="Config">
+<div id="sum_cfg" data-role="page" data-title="Config" class="ui-nosvg">
 	<div data-role="header" data-theme="b">
-		<a href="#" class="ui-btn ui-corner-all ui-btn-left" onclick="window.history.back();">Back</a>
+		<a href="#" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-carat-l ui-corner-all" onclick="window.history.back();">Back</a>
 		<h1>Config</h1> 
 	</div> 
 	<div role="main" class="ui-content">
