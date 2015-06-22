@@ -52,7 +52,7 @@ $(document).on('pagecreate', '#pro', function() {
 		calculate();
 		display();
 		window.history.back();
-		e.stopPropagation();
+		return false;
 	});
 	$("#help_mode").change(function(){
 		if ( $("#help_mode").prop("checked") ) {
