@@ -41,10 +41,12 @@ $(document).on('pagecreate', '#pro', function() {
 		initialize();
 		calculate();
 		display();
-		e.stopPropagation();
 	});
 	$("#proCfg").tap(function(e){
 		$("#clpsLier").collapsible("collapse");
+	});
+	$("#clpsLier").tap(function(e){
+		alert('collapse');
 		e.stopPropagation();
 	});
 	$("#proPadLier .ui-btn").tap(function(e){
@@ -52,7 +54,7 @@ $(document).on('pagecreate', '#pro', function() {
 		calculate();
 		display();
 		window.history.back();
-		return false;
+		e.stopPropagation();
 	});
 	$("#help_mode").change(function(){
 		if ( $("#help_mode").prop("checked") ) {
@@ -62,9 +64,6 @@ $(document).on('pagecreate', '#pro', function() {
 		}
 	});
 	$("a").tap(function(e){
-		initialize();
-		calculate();
-		display();
 		e.stopPropagation();
 	});
 
