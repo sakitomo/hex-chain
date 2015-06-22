@@ -35,15 +35,13 @@ $(document).on('pagecreate', '#pro', function() {
 				}
 			}, 1000);
 		}
-		return false;
 	});
 	$("#proGen").tap(function(){
 		initialize();
 		calculate();
 		display();
-		return false;
 	});
-	$("#proCfg").click(function(){
+	$("#proCfg").tap(function(){
 		$("#clpsLier").collapsible("collapse");
 	});
 	$("#proPadLier .ui-btn").tap(function(){
@@ -51,7 +49,6 @@ $(document).on('pagecreate', '#pro', function() {
 		calculate();
 		display();
 		window.history.back();
-		return false;
 	});
 	$("#help_mode").change(function(){
 		if ( $("#help_mode").prop("checked") ) {
@@ -59,6 +56,9 @@ $(document).on('pagecreate', '#pro', function() {
 		} else {
 			$("#proCarRow").hide();
 		}
+	});
+	$("a").tap(function(e){
+		e.stopPropagation();
 	});
 
 
