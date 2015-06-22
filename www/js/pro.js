@@ -36,13 +36,21 @@ $(document).on('pagecreate', '#pro', function() {
 			}, 1000);
 		}
 	});
-	$("#proGen").tap(function(){
+	$("#proGen").tap(function(e){
 		initialize();
 		calculate();
 		display();
+		e.stopPropagation();
 	});
-	$("#proCfg").tap(function(){
+	$("#proCfg").tap(function(e){
 		$("#clpsLier").collapsible("collapse");
+		e.stopPropagation();
+	});
+	$("#back1").tap(function(e){
+		e.stopPropagation();
+	});
+	$("#back2").tap(function(e){
+		e.stopPropagation();
 	});
 	$("#proPadLier .ui-btn").tap(function(){
 		initialize($(this).val());
@@ -56,9 +64,6 @@ $(document).on('pagecreate', '#pro', function() {
 		} else {
 			$("#proCarRow").hide();
 		}
-	});
-	$("a").tap(function(e){
-		e.stopPropagation();
 	});
 
 
