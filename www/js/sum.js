@@ -22,7 +22,7 @@ $(document).on('pagecreate', '#sum', function() {
 	calculate();
 	display();
 
-	$("#sumPad .ui-btn").click(function(){
+	$("#sumPad .ui-btn").tap(function(){
 		if ( !isSleep && verify($(this).val()) ) {
 			isSleep = true;
 			setTimeout( function(){
@@ -34,11 +34,18 @@ $(document).on('pagecreate', '#sum', function() {
 				}
 			}, 1000);
 		}
+		return false;
 	});
-	$("#sumGen").click(function(){
+	$("#sumGen").tap(function(){
 		initialize();
 		calculate();
 		display();
+	});
+	$("a").tap(function(e){
+		e.stopPropagation();
+	});
+	$("#row_size").tap(function(e){
+		e.stopPropagation();
 	});
 	$("#row_size").change(function(){
 		row = $("#row_size").val();
