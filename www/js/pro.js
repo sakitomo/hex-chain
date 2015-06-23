@@ -23,7 +23,7 @@ $(document).on('pagecreate', '#pro', function() {
 	calculate();
 	display();
 
-	$("#proPad .ui-btn").tap(function(){
+	$("#proPad .ui-btn").tap(function(e){
 		if ( !isSleep && verify($(this).val()) ) {
 			isSleep = true;
 			setTimeout( function(){
@@ -35,28 +35,31 @@ $(document).on('pagecreate', '#pro', function() {
 				}
 			}, 1000);
 		}
-		return false;
+		e.preventDefault();
+		e.stopPropagation();
 	});
 	$("#proGen").tap(function(e){
 		initialize();
 		calculate();
 		display();
+		e.stopPropagation();
 	});
-	$("#proCfg").tap(function(e){
+	$("#proCfg").click(function(){
 		$("#clpsLier").collapsible("collapse");
 	});
-	$("a").tap(function(e){
+	$("a[data-rel=back]").tap(function(e){
 		e.stopPropagation();
 	});
 	$("#clpsLier").tap(function(e){
 		e.stopPropagation();
 	});
-	$("#proPadLier .ui-btn").tap(function(){
+	$("#proPadLier .ui-btn").tap(function(e){
 		initialize($(this).val());
 		calculate();
 		display();
 		window.history.back();
-		return false;
+		e.preventDefault();
+		e.stopPropagation();
 	});
 	$("#help_mode").change(function(){
 		if ( $("#help_mode").prop("checked") ) {
