@@ -59,6 +59,9 @@ $(document).on('pagecreate', '#pro', function() {
 			$("#proCarRow").hide();
 		}
 	});
+	$("#rand_mode").change(function(){
+		randomize_pad("#proPad", $("#rand_mode").prop("checked"));
+	});
 
 
 	function generate() {

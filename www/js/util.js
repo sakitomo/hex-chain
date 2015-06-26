@@ -43,21 +43,40 @@ function convert_hex(dec) {
 
 
 function generate_pad($pad) {
-	var i, j;
 	var inner = '';
-	var val = 0;
 	var block = ['a', 'b', 'c', 'd'];
+	var i, j;
 
 	inner += '<div class="ui-grid-c divNum">';
-	for ( i = 0; i < 4; i++ ) {
-		for ( j = 0; j < 4; j++ ) {
+	for ( i = 0; i < 16; ) {
+		for ( j = 0; j < 4; j++, i++ ) {
 			inner += '<div class="ui-block-' + block[j] + '">';
-			inner += '<button value="' + val + '" class="ui-btn ui-corner-all">' + convert_hex(val) + '</button>';
+			inner += '<button value="' + i + '" class="ui-btn ui-corner-all">' + convert_hex(i) + '</button>';
 			inner += '</div>';
-			val++;
 		}
 	}
 	inner += '</div>';
 
 	$pad.html(inner);
+}
+
+function randomize_pad(pad, isRandom) {
+	var nums = new Array(16);
+	var i, j;
+
+	for ( i = 0; i < 16; i++ ) {
+		nums[i] = i;
+	}
+
+	if ( isRandom ) {
+		for ( i = 15; i >= 0; i-- ) {
+			j = Math.floor( Math.random() * (i+1) );
+			nums[j] = [nums[i], nums[i]=nums[j]][0];
+		}
+	}
+
+	$(pad+" .ui-btn").each(function(i) {
+		$(this).val(nums[i]);
+		$(this).text(convert_hex(nums[i]));
+	});
 }
