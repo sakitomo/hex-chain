@@ -42,7 +42,7 @@ function convert_hex(dec) {
 }
 
 
-function generate_pad(selector) {
+function generate_pad($pad) {
 	var i, j;
 	var inner = '';
 	var val = 0;
@@ -59,5 +59,5 @@ function generate_pad(selector) {
 	}
 	inner += '</div>';
 
-	selector.html(inner);
+	$pad.html(inner);
 }

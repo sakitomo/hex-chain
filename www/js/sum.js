@@ -35,19 +35,11 @@ $(document).on('pagecreate', '#sum', function() {
 			}, 1000);
 		}
 		e.preventDefault();
-		e.stopPropagation();
 	});
 	$("#sumGen").tap(function(e){
 		initialize();
 		calculate();
 		display();
-		e.stopPropagation();
-	});
-	$("a[data-rel=back]").tap(function(e){
-		e.stopPropagation();
-	});
-	$("#row_size").tap(function(e){
-		e.stopPropagation();
 	});
 	$("#row_size").change(function(){
 		row = $("#row_size").val();

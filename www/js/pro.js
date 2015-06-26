@@ -36,22 +36,14 @@ $(document).on('pagecreate', '#pro', function() {
 			}, 1000);
 		}
 		e.preventDefault();
-		e.stopPropagation();
 	});
 	$("#proGen").tap(function(e){
 		initialize();
 		calculate();
 		display();
-		e.stopPropagation();
 	});
 	$("#proCfg").click(function(){
 		$("#clpsLier").collapsible("collapse");
-	});
-	$("a[data-rel=back]").tap(function(e){
-		e.stopPropagation();
-	});
-	$("#clpsLier").tap(function(e){
-		e.stopPropagation();
 	});
 	$("#proPadLier .ui-btn").tap(function(e){
 		initialize($(this).val());
@@ -59,7 +51,6 @@ $(document).on('pagecreate', '#pro', function() {
 		display();
 		window.history.back();
 		e.preventDefault();
-		e.stopPropagation();
 	});
 	$("#help_mode").change(function(){
 		if ( $("#help_mode").prop("checked") ) {
