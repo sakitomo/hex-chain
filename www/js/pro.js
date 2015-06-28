@@ -37,7 +37,7 @@ $(document).on('pagecreate', '#pro', function() {
 		}
 		e.preventDefault();
 	});
-	$("#proGen").tap(function(e){
+	$("#proGen").tap(function(){
 		initialize();
 		calculate();
 		display();

@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<TITLE>Hex Carry Chain Generator</TITLE>
+<TITLE>Hex Carry-Chain Generator</TITLE>
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
@@ -31,11 +31,11 @@
 		<div id="sumPad"></div>
 	</div>
 	<div data-role="footer" data-position="fixed" data-theme="b" class="ui-bar"> 
-		<a href="#sum_cfg" id="sumCfg" class="ui-btn ui-btn-icon-left ui-icon-gear ui-corner-all">Config</a>
+		<a href="#cfg" id="sumCfg" class="ui-btn ui-btn-icon-left ui-icon-gear ui-corner-all">Config</a>
 	</div> 
 </div>
 
-<div id="sum_cfg" data-role="page" data-title="Config">
+<div id="cfg" data-role="page" data-title="Config">
 	<div data-role="header" data-theme="b">
 		<a href="#" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-carat-l ui-corner-all" data-rel="back">Back</a>
 		<h1>Config</h1> 
@@ -58,6 +58,10 @@
 		<div class="ui-field-contain"> 
 			<label for="help_mode">Display carry row:</label>
 			<input type="checkbox" id="help_mode" value="1" data-role="flipswitch" checked>
+		</div>
+		<div class="ui-field-contain"> 
+			<label for="rand_mode">Shuffle number pad:</label>
+			<input type="checkbox" id="rand_mode" value="1" data-role="flipswitch">
 		</div>
 	</div>
 </div>

@@ -13,7 +13,7 @@ body,input,button,.ui-btn,table {
 
 .ui-collapsible-heading .ui-btn {
 	font-size: medium;
-	font-weight:normal;
+	font-weight: normal;
 }
 
 .divBody {
@@ -21,7 +21,9 @@ body,input,button,.ui-btn,table {
 }
 
 .divNum .ui-btn {
-	font-size: large;
+	font-size: x-large;
+	height: 51px;
+	padding: 0;
 	margin: 0;
 }
 
@@ -46,5 +48,5 @@ body,input,button,.ui-btn,table {
 }
 
 .tdColBold {
-	font-weight:bold;;
+	font-weight: bold;;
 }

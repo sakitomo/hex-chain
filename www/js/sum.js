@@ -36,7 +36,7 @@ $(document).on('pagecreate', '#sum', function() {
 		}
 		e.preventDefault();
 	});
-	$("#sumGen").tap(function(e){
+	$("#sumGen").tap(function(){
 		initialize();
 		calculate();
 		display();
@@ -52,6 +52,9 @@ $(document).on('pagecreate', '#sum', function() {
 	});
 	$("#help_mode").change(function(){
 		validate_help_mode();
+	});
+	$("#rand_mode").change(function(){
+		randomize_pad("#sumPad", $("#rand_mode").prop("checked"));
 	});
 
 
