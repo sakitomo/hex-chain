@@ -16,6 +16,7 @@ $(document).on('pagecreate', '#sum', function() {
 	$.mobile.defaultPageTransition = 'none';
 
 	generate_pad($("#sumPad"));
+	config_common($("#sumCommon"));
 
 	generate();
 	initialize();

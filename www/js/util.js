@@ -80,3 +80,29 @@ function randomize_pad(pad, isRandom) {
 		$(this).text(convert_hex(nums[i]));
 	});
 }
+
+
+function config_common($div) {
+	var Field = function(id, label, checked) {
+		this.id = id || 'undef ID';
+		this.label  = label || 'undef LABEL';
+		this.checked  = checked;
+	};
+
+	var fields = [
+		new Field('hard_mode', 'Weight digits A-F', true),
+		new Field('help_mode', 'Display carry row', true),
+		new Field('rand_mode', 'Shuffle number pad', false)
+	];
+	var inner = '';
+	var i;
+
+	for ( i = 0; i < fields.length; i++ ) {
+		inner += '<div class="ui-field-contain">';
+		inner += '<label for="' + fields[i].id + '">' + fields[i].label + ':</label>';
+		inner += '<input type="checkbox" id="' + fields[i].id + '" data-role="flipswitch"' + (fields[i].checked ? ' checked>' : '>');
+		inner += '</div>';
+	}
+
+	$div.html(inner);
+}

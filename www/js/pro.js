@@ -17,6 +17,7 @@ $(document).on('pagecreate', '#pro', function() {
 	generate_pad($("#proPad"));
 	generate_pad($("#proPadLier"));
 	$("#proPadLier .ui-btn:lt(2)").addClass("ui-state-disabled");
+	config_common($("#proCommon"));
 
 	generate();
 	initialize();
