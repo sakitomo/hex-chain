@@ -1,2 +1,2 @@
 # hex-chain
-Hex Carry Chain Generator
+Hex Carry-Chain Generator
