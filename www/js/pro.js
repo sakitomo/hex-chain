@@ -1,4 +1,9 @@
-$(document).on('pagecreate', '#pro', function() {
+$(document).on('mobileinit', function() {
+	$.mobile.defaultPageTransition = 'none';
+});
+
+
+$(function() {
 	var mLier = 0;
 	var mCand;
 	var numPro;
@@ -11,8 +16,6 @@ $(document).on('pagecreate', '#pro', function() {
 
 	var isSleep;
 
-
-	$.mobile.defaultPageTransition = 'none';
 
 	generate_pad($("#proPad"));
 	generate_pad($("#proPadLier"));

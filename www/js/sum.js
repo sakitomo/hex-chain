@@ -1,4 +1,9 @@
-$(document).on('pagecreate', '#sum', function() {
+$(document).on('mobileinit', function() {
+	$.mobile.defaultPageTransition = 'none';
+});
+
+
+$(function() {
 	var max = 4;
 	var row = 4;
 
@@ -12,8 +17,6 @@ $(document).on('pagecreate', '#sum', function() {
 
 	var isSleep;
 
-
-	$.mobile.defaultPageTransition = 'none';
 
 	generate_pad($("#sumPad"));
 	config_common($("#sumCommon"));

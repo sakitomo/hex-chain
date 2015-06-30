@@ -88,6 +88,9 @@ function config_common($div) {
 		this.label  = label || 'undef LABEL';
 		this.checked  = checked;
 	};
+	Field.prototype.propChecked = function() {
+		return this.checked ? ' checked' : '';
+	};
 
 	var fields = [
 		new Field('hard_mode', 'Weight digits A-F', true),
@@ -100,7 +103,7 @@ function config_common($div) {
 	for ( i = 0; i < fields.length; i++ ) {
 		inner += '<div class="ui-field-contain">';
 		inner += '<label for="' + fields[i].id + '">' + fields[i].label + ':</label>';
-		inner += '<input type="checkbox" id="' + fields[i].id + '" data-role="flipswitch"' + (fields[i].checked ? ' checked>' : '>');
+		inner += '<input type="checkbox" id="' + fields[i].id + '" data-role="flipswitch"' + fields[i].propChecked() + '>';
 		inner += '</div>';
 	}
 
