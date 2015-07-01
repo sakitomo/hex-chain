@@ -88,8 +88,8 @@ var UTL = (function() {
 
 	my.config_common = function ($div) {
 		var Field = function(id, label, checked) {
-			this.id = id || 'undef ID';
-			this.label = label || 'undef LABEL';
+			this.id = id;
+			this.label = label;
 			this.checked = checked;
 
 			this.propChecked = function() {

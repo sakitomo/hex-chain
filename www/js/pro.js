@@ -78,7 +78,7 @@ var PRO = (function(UTL) {
 
 		inner += '<TR>';
 		inner += '<TD class="tdTitle">multiplicand:&#160;</TD>';
-		inner += '<TD class="tdColumn"></TD>';
+		inner += '<TD class="tdColumn" colspan="2"></TD>';
 		inner += '<TD class="tdColumn"><SPAN id="muland"></SPAN></TD>';
 		for ( i = 0; i < max; i++ ) {
 			inner += '<TD class="tdColumn"><SPAN id="muland' + i + '"></SPAN></TD>';
@@ -88,7 +88,7 @@ var PRO = (function(UTL) {
 
 		inner += '<TR>';
 		inner += '<TD class="tdTitle">multiplier:&#160;</TD>';
-		inner += '<TD class="tdColUnder">&times;&#160;</TD>';
+		inner += '<TD class="tdColUnder" colspan="2">&times;&#160;</TD>';
 		inner += '<TD class="tdColUnder"><SPAN id="mulier"></SPAN></TD>';
 		for ( i = 0; i < max; i++ ) {
 			inner += '<TD class="tdColUnder">&#160;&#160;</TD>';
@@ -98,7 +98,7 @@ var PRO = (function(UTL) {
 
 		inner += '<TR>';
 		inner += '<TD class="tdTitle">product:&#160;</TD>';
-		inner += '<TD class="tdColumn"><SPAN id="mulRes"></SPAN></TD>';
+		inner += '<TD class="tdColumn" colspan="2"><SPAN id="mulRes"></SPAN></TD>';
 		inner += '<TD class="tdColBold"><SPAN id="mulPro">?</SPAN></TD>';
 		for ( i = 0; i < max; i++ ) {
 			inner += '<TD class="tdColumn"><SPAN id="mulPro' + i + '"></SPAN></TD>';
@@ -109,7 +109,7 @@ var PRO = (function(UTL) {
 		inner += '<TR id="proCarRow">';
 		inner += '<TD class="tdTitle">carry:&#160;</TD>';
 		inner += '<TD class="tdColumn"></TD>';
-		inner += '<TD class="tdColumn">&#160;</TD>';
+		inner += '<TD class="tdUpper" colspan="2">?</TD>';
 		for ( i = 0; i < max; i++ ) {
 			inner += '<TD class="tdUpper"><SPAN id="mulCar' + i + '"></SPAN></TD>';
 		}
@@ -124,8 +124,9 @@ var PRO = (function(UTL) {
 	my.initialize = function (lier) {
 		var i;
 
-		mLier = lier === undefined ? UTL.random_unique(2, [UTL.convert_hex(mLier)]) : lier;
+		mLier = arguments.length < 1 ? UTL.random_unique(2, [UTL.convert_hex(mLier)]) : lier;
 		numCar = 0;
+
 		for ( i = 0; i < max; i++ ) {
 			arrMul[i] = '&#160;';
 			arrPro[i] = '&#160;';

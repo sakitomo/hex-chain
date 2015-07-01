@@ -85,7 +85,7 @@ var SUM = (function(UTL) {
 		for ( r = 0; r < row-1; r++ ) {
 			inner += '<TR>';
 			inner += '<TD class="tdTitle">addend ' + (r+1) + ':&#160;</TD>';
-			inner += '<TD class="tdColumn"></TD>';
+			inner += '<TD class="tdColumn" colspan="2"></TD>';
 			inner += '<TD class="tdColumn"><SPAN id="addend' + r + '"></SPAN></TD>';
 			for ( c = 0; c < max; c++ ) {
 				inner += '<TD class="tdColumn"><SPAN id="addend' + r + '_' + c + '"></SPAN></TD>';
@@ -96,7 +96,7 @@ var SUM = (function(UTL) {
 
 		inner += '<TR>';
 		inner += '<TD class="tdTitle">addend ' + row + ':&#160;</TD>';
-		inner += '<TD class="tdColUnder">+&#160;</TD>';
+		inner += '<TD class="tdColUnder" colspan="2">+&#160;</TD>';
 		inner += '<TD class="tdColUnder"><SPAN id="addend' + (row-1) + '">&#160;</SPAN></TD>';
 		for ( c = 0; c < max; c++ ) {
 			inner += '<TD class="tdColUnder"><SPAN id="addend' + (row-1) + '_' + c + '">&#160;&#160;</SPAN></TD>';
@@ -106,7 +106,7 @@ var SUM = (function(UTL) {
 
 		inner += '<TR>';
 		inner += '<TD class="tdTitle">sum:&#160;</TD>';
-		inner += '<TD class="tdColumn"><SPAN id="addRes"></SPAN></TD>';
+		inner += '<TD class="tdColumn" colspan="2"><SPAN id="addRes"></SPAN></TD>';
 		inner += '<TD class="tdColBold"><SPAN id="addSum">?</SPAN></TD>';
 		for ( c = 0; c < max; c++ ) {
 			inner += '<TD class="tdColumn"><SPAN id="addSum' + c + '"></SPAN></TD>';
@@ -117,7 +117,7 @@ var SUM = (function(UTL) {
 		inner += '<TR id="sumCarRow">';
 		inner += '<TD class="tdTitle">carry:&#160;</TD>';
 		inner += '<TD class="tdColumn"></TD>';
-		inner += '<TD class="tdColumn">&#160;</TD>';
+		inner += '<TD class="tdUpper" colspan="2">?</TD>';
 		for ( c = 0; c < max; c++ ) {
 			inner += '<TD class="tdUpper"><SPAN id="addCar' + c + '"></SPAN></TD>';
 		}
@@ -170,9 +170,10 @@ var SUM = (function(UTL) {
 		$("#addSum").html("?");
 
 		for ( c = 0; c < max; c++ ) {
-			for ( r = 0; r < row; r++ ) {
-				$("#addend"+r+"_"+c).html("&#160;" + arrAdd[c][r]);
+			for ( r = 0; r < row-1; r++ ) {
+				$("#addend"+r+"_"+c).html(arrAdd[c][r]);
 			}
+			$("#addend"+(row-1)+"_"+c).html("&#160;" + arrAdd[c][row-1]);
 			$("#addSum"+c).html(arrSum[c]);
 			$("#addCar"+c).html(arrCar[c]);
 		}
