@@ -3,7 +3,55 @@ $(document).on('mobileinit', function() {
 });
 
 
-$(function() {
+$(document).on('pagecreate', '#sum', function() {
+	UTL.generate_pad($("#sumPad"));
+	UTL.config_common($("#sumCommon"));
+
+	SUM.generate();
+	SUM.initialize();
+	SUM.calculate();
+	SUM.display();
+
+	$("#sumPad .ui-btn").tap(function(e){
+		if ( !SUM.isSleep && SUM.verify($(this).val()) ) {
+			SUM.isSleep = true;
+			setTimeout( function(){
+				if ( SUM.isSleep ) {
+					SUM.shift();
+					SUM.calculate();
+					SUM.display();
+					SUM.isSleep = false;
+				}
+			}, 1000);
+		}
+		e.preventDefault();
+	});
+	$("#sumGen").tap(function(){
+		SUM.initialize();
+		SUM.calculate();
+		SUM.display();
+	});
+	$("#row_size").change(function(){
+		SUM.set_row($("#row_size").val());
+		SUM.generate();
+		SUM.validate_help_mode();
+		SUM.initialize();
+		SUM.calculate();
+		SUM.display();
+		window.history.back();
+	});
+	$("#help_mode").change(function(){
+		SUM.validate_help_mode();
+	});
+	$("#rand_mode").change(function(){
+		UTL.randomize_pad("#sumPad", $("#rand_mode").prop("checked"));
+	});
+});
+
+
+var SUM = (function(UTL) {
+	var my = {};
+
 	var max = 4;
 	var row = 4;
 
@@ -15,62 +63,22 @@ $(function() {
 	var arrSum = new Array(max);
 	var arrCar = new Array(max);
 
-	var isSleep;
+	my.isSleep = true;
 
 
-	generate_pad($("#sumPad"));
-	config_common($("#sumCommon"));
+	my.set_row = function (size) {
+		row = size;
+	};
 
-	generate();
-	initialize();
-	calculate();
-	display();
-
-	$("#sumPad .ui-btn").tap(function(e){
-		if ( !isSleep && verify($(this).val()) ) {
-			isSleep = true;
-			setTimeout( function(){
-				if ( isSleep ) {
-					shift();
-					calculate();
-					display();
-					isSleep = false;
-				}
-			}, 1000);
-		}
-		e.preventDefault();
-	});
-	$("#sumGen").tap(function(){
-		initialize();
-		calculate();
-		display();
-	});
-	$("#row_size").change(function(){
-		row = $("#row_size").val();
-		generate();
-		validate_help_mode();
-		initialize();
-		calculate();
-		display();
-		window.history.back();
-	});
-	$("#help_mode").change(function(){
-		validate_help_mode();
-	});
-	$("#rand_mode").change(function(){
-		randomize_pad("#sumPad", $("#rand_mode").prop("checked"));
-	});
-
-
-	function validate_help_mode() {
+	my.validate_help_mode = function () {
 		if ( $("#help_mode").prop("checked") ) {
 			$("#sumCarRow").show();
 		} else {
 			$("#sumCarRow").hide();
 		}
-	}
+	};
 
-	function generate() {
+	my.generate = function () {
 		var r, c;
 		var inner = '<TABLE cellspacing="0" cellpadding="0">';
 
@@ -119,9 +127,9 @@ $(function() {
 		inner += '</TABLE>';
 
 		$("#sumHTML").html(inner);
-	}
+	};
 
-	function initialize() {
+	my.initialize = function () {
 		var c, r;
 
 		numCar = 0;
@@ -134,28 +142,28 @@ $(function() {
 			arrCar[c] = '&#160;';
 		}
 
-		isSleep = false;
-	}
+		my.isSleep = false;
+	};
 
-	function calculate() {
+	my.calculate = function () {
 		var r;
 		var result = numCar;
 
 		addend = new Array(row);
 		for ( r = 0; r < row; r++ ) {
-			addend[r] = random_digit(1);
+			addend[r] = UTL.random_digit(1);
 			result += addend[r];
 		}
 
 		numSum = result % 16;
 		numCar = Math.floor( result / 16 );
-	}
+	};
 
-	function display() {
+	my.display = function () {
 		var c, r;
 
 		for ( r = 0; r < row; r++ ) {
-			$("#addend"+r).html(convert_hex(addend[r]));
+			$("#addend"+r).html(UTL.convert_hex(addend[r]));
 		}
 
 		$("#addRes").html("&#160;");
@@ -168,31 +176,31 @@ $(function() {
 			$("#addSum"+c).html(arrSum[c]);
 			$("#addCar"+c).html(arrCar[c]);
 		}
-	}
+	};
 
-	function verify(val) {
+	my.verify = function (val) {
 		if ( val == numSum ) {
 			$("#addRes").html("&#10004;").css("color","green");
-			$("#addSum").html(convert_hex(val));
+			$("#addSum").html(UTL.convert_hex(val));
 			return true;
 		} else {
 			$("#addRes").html("&#10005;").css("color","red");
-			$("#addSum").html(convert_hex(val));
+			$("#addSum").html(UTL.convert_hex(val));
 			return false;
 		}
-	}
+	};
 
-	function shift() {
+	my.shift = function () {
 		var r;
 		var arr = new Array(row);
 
 		for ( r = 0; r < row; r++ ) {
-			arr[r] = convert_hex(addend[r]);
+			arr[r] = UTL.convert_hex(addend[r]);
 		}
 
 		arrAdd.unshift(arr);
-		arrSum.unshift(convert_hex(numSum));
-		arrCar.unshift(convert_hex(numCar));
+		arrSum.unshift(UTL.convert_hex(numSum));
+		arrCar.unshift(UTL.convert_hex(numCar));
 
 		while ( arrAdd.length > max ) {
 			arrAdd.pop();
@@ -205,5 +213,8 @@ $(function() {
 		while ( arrCar.length > max ) {
 			arrCar.pop();
 		}
-	}
-});
+	};
+
+
+	return my;
+}(UTL));

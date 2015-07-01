@@ -3,56 +3,43 @@ $(document).on('mobileinit', function() {
 });
 
 
-$(function() {
-	var mLier = 0;
-	var mCand;
-	var numPro;
-	var numCar;
-
-	var max = 4;
-	var arrMul = new Array(max);
-	var arrPro = new Array(max);
-	var arrCar = new Array(max);
-
-	var isSleep;
-
-
-	generate_pad($("#proPad"));
-	generate_pad($("#proPadLier"));
+$(document).on('pagecreate', '#pro', function() {
+	UTL.generate_pad($("#proPad"));
+	UTL.generate_pad($("#proPadLier"));
 	$("#proPadLier .ui-btn:lt(2)").addClass("ui-state-disabled");
-	config_common($("#proCommon"));
+	UTL.config_common($("#proCommon"));
 
-	generate();
-	initialize();
-	calculate();
-	display();
+	PRO.generate();
+	PRO.initialize();
+	PRO.calculate();
+	PRO.display();
 
 	$("#proPad .ui-btn").tap(function(e){
-		if ( !isSleep && verify($(this).val()) ) {
-			isSleep = true;
+		if ( !PRO.isSleep && PRO.verify($(this).val()) ) {
+			PRO.isSleep = true;
 			setTimeout( function(){
-				if ( isSleep ) {
-					shift();
-					calculate();
-					display();
-					isSleep = false;
+				if ( PRO.isSleep ) {
+					PRO.shift();
+					PRO.calculate();
+					PRO.display();
+					PRO.isSleep = false;
 				}
 			}, 1000);
 		}
 		e.preventDefault();
 	});
 	$("#proGen").tap(function(){
-		initialize();
-		calculate();
-		display();
+		PRO.initialize();
+		PRO.calculate();
+		PRO.display();
 	});
 	$("#proCfg").click(function(){
 		$("#clpsLier").collapsible("collapse");
 	});
 	$("#proPadLier .ui-btn").tap(function(e){
-		initialize($(this).val());
-		calculate();
-		display();
+		PRO.initialize($(this).val());
+		PRO.calculate();
+		PRO.display();
 		window.history.back();
 		e.preventDefault();
 	});
@@ -64,11 +51,28 @@ $(function() {
 		}
 	});
 	$("#rand_mode").change(function(){
-		randomize_pad("#proPad", $("#rand_mode").prop("checked"));
+		UTL.randomize_pad("#proPad", $("#rand_mode").prop("checked"));
 	});
+});
 
 
-	function generate() {
+var PRO = (function(UTL) {
+	var my = {};
+
+	var mLier = 0;
+	var mCand;
+	var numPro;
+	var numCar;
+
+	var max = 4;
+	var arrMul = new Array(max);
+	var arrPro = new Array(max);
+	var arrCar = new Array(max);
+
+	my.isSleep = true;
+
+
+	my.generate = function () {
 		var i;
 		var inner = '<TABLE cellspacing="0" cellpadding="0">';
 
@@ -115,12 +119,12 @@ $(function() {
 		inner += '</TABLE>';
 
 		$("#proHTML").html(inner);
-	}
+	};
 
-	function initialize(lier) {
+	my.initialize = function (lier) {
 		var i;
 
-		mLier = lier === undefined ? random_unique(2, [convert_hex(mLier)]) : lier;
+		mLier = lier === undefined ? UTL.random_unique(2, [UTL.convert_hex(mLier)]) : lier;
 		numCar = 0;
 		for ( i = 0; i < max; i++ ) {
 			arrMul[i] = '&#160;';
@@ -128,24 +132,24 @@ $(function() {
 			arrCar[i] = '&#160;';
 		}
 
-		isSleep = false;
-	}
+		my.isSleep = false;
+	};
 
-	function calculate() {
+	my.calculate = function () {
 		var result;
 
-		mCand = random_unique(1, arrMul);
+		mCand = UTL.random_unique(1, arrMul);
 		result = mCand * mLier + numCar;
 
 		numPro = result % 16;
 		numCar = Math.floor( result / 16 );
-	}
+	};
 
-	function display() {
+	my.display = function () {
 		var i;
 
-		$("#muland").html(convert_hex(mCand));
-		$("#mulier").html(convert_hex(mLier));
+		$("#muland").html(UTL.convert_hex(mCand));
+		$("#mulier").html(UTL.convert_hex(mLier));
 
 		$("#mulRes").html("&#160;");
 		$("#mulPro").html("?");
@@ -155,24 +159,24 @@ $(function() {
 			$("#mulPro"+i).html(arrPro[i]);
 			$("#mulCar"+i).html(arrCar[i]);
 		}
-	}
+	};
 
-	function verify(val) {
+	my.verify = function (val) {
 		if (val == numPro) {
 			$("#mulRes").html("&#10004;").css("color","green");
-			$("#mulPro").html(convert_hex(val));
+			$("#mulPro").html(UTL.convert_hex(val));
 			return true;
 		} else {
 			$("#mulRes").html("&#10005;").css("color","red");
-			$("#mulPro").html(convert_hex(val));
+			$("#mulPro").html(UTL.convert_hex(val));
 			return false;
 		}
-	}
+	};
 
-	function shift() {
-		arrMul.unshift(convert_hex(mCand));
-		arrPro.unshift(convert_hex(numPro));
-		arrCar.unshift(convert_hex(numCar));
+	my.shift = function () {
+		arrMul.unshift(UTL.convert_hex(mCand));
+		arrPro.unshift(UTL.convert_hex(numPro));
+		arrCar.unshift(UTL.convert_hex(numCar));
 
 		while ( arrMul.length > max ) {
 			arrMul.pop();
@@ -185,5 +189,8 @@ $(function() {
 		while ( arrCar.length > max ) {
 			arrCar.pop();
 		}
-	}
-});
+	};
+
+
+	return my;
+}(UTL));
