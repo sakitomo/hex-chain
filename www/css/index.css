@@ -18,6 +18,7 @@ body,input,button,.ui-btn,table {
 
 .divBody {
 	font-size: medium;
+	margin-bottom: 2px;
 }
 
 .divNum .ui-btn {

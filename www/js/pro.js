@@ -113,7 +113,7 @@ var PRO = (function(UTL) {
 		for ( i = 0; i < max; i++ ) {
 			inner += '<TD class="tdUpper"><SPAN id="mulCar' + i + '"></SPAN></TD>';
 		}
-		inner += '<TD class="tdColumn"></TD>';
+		inner += '<TD class="tdColumn">&#160;</TD>';
 		inner += '</TR>';
 
 		inner += '</TABLE>';

@@ -121,7 +121,7 @@ var SUM = (function(UTL) {
 		for ( c = 0; c < max; c++ ) {
 			inner += '<TD class="tdUpper"><SPAN id="addCar' + c + '"></SPAN></TD>';
 		}
-		inner += '<TD class="tdColumn"></TD>';
+		inner += '<TD class="tdColumn">&#160;</TD>';
 		inner += '</TR>';
 
 		inner += '</TABLE>';
