@@ -84,44 +84,44 @@ var SUM = (function(UTL) {
 
 		for ( r = 0; r < row-1; r++ ) {
 			inner += '<TR>';
-			inner += '<TD class="tdTitle">addend ' + (r+1) + ':&#160;</TD>';
-			inner += '<TD class="tdColumn" colspan="2"></TD>';
-			inner += '<TD class="tdColumn"><SPAN id="addend' + r + '"></SPAN></TD>';
+			inner += '<TD class="td__title">addend ' + (r+1) + ':&#160;</TD>';
+			inner += '<TD class="td__column" colspan="2"></TD>';
+			inner += '<TD class="td__column"><SPAN id="addend' + r + '"></SPAN></TD>';
 			for ( c = 0; c < max; c++ ) {
-				inner += '<TD class="tdColumn"><SPAN id="addend' + r + '_' + c + '"></SPAN></TD>';
+				inner += '<TD class="td__column"><SPAN id="addend' + r + '_' + c + '"></SPAN></TD>';
 			}
-			inner += '<TD class="tdColumn">&#160;</TD>';
+			inner += '<TD class="td__column">&#160;</TD>';
 			inner += '</TR>';
 		}
 
 		inner += '<TR>';
-		inner += '<TD class="tdTitle">addend ' + row + ':&#160;</TD>';
-		inner += '<TD class="tdColUnder" colspan="2">+&#160;</TD>';
-		inner += '<TD class="tdColUnder"><SPAN id="addend' + (row-1) + '">&#160;</SPAN></TD>';
+		inner += '<TD class="td__title">addend ' + row + ':&#160;</TD>';
+		inner += '<TD class="td__column--under" colspan="2">+&#160;</TD>';
+		inner += '<TD class="td__column--under"><SPAN id="addend' + (row-1) + '">&#160;</SPAN></TD>';
 		for ( c = 0; c < max; c++ ) {
-			inner += '<TD class="tdColUnder"><SPAN id="addend' + (row-1) + '_' + c + '">&#160;&#160;</SPAN></TD>';
+			inner += '<TD class="td__column--under"><SPAN id="addend' + (row-1) + '_' + c + '">&#160;&#160;</SPAN></TD>';
 		}
-		inner += '<TD class="tdColUnder">&#160;</TD>';
+		inner += '<TD class="td__column--under">&#160;</TD>';
 		inner += '</TR>';
 
 		inner += '<TR>';
-		inner += '<TD class="tdTitle">sum:&#160;</TD>';
-		inner += '<TD class="tdColumn" colspan="2"><SPAN id="addRes"></SPAN></TD>';
-		inner += '<TD class="tdColBold"><SPAN id="addSum">?</SPAN></TD>';
+		inner += '<TD class="td__title">sum:&#160;</TD>';
+		inner += '<TD class="td__column" colspan="2"><SPAN id="addRes"></SPAN></TD>';
+		inner += '<TD class="td__column--bold"><SPAN id="addSum">?</SPAN></TD>';
 		for ( c = 0; c < max; c++ ) {
-			inner += '<TD class="tdColumn"><SPAN id="addSum' + c + '"></SPAN></TD>';
+			inner += '<TD class="td__column"><SPAN id="addSum' + c + '"></SPAN></TD>';
 		}
-		inner += '<TD class="tdColumn"></TD>';
+		inner += '<TD class="td__column"></TD>';
 		inner += '</TR>';
 
 		inner += '<TR id="sumCarRow">';
-		inner += '<TD class="tdTitle">carry:&#160;</TD>';
-		inner += '<TD class="tdColumn"></TD>';
-		inner += '<TD class="tdUpper" colspan="2">?</TD>';
+		inner += '<TD class="td__title">carry:&#160;</TD>';
+		inner += '<TD class="td__column"></TD>';
+		inner += '<TD class="td__super" colspan="2">?</TD>';
 		for ( c = 0; c < max; c++ ) {
-			inner += '<TD class="tdUpper"><SPAN id="addCar' + c + '"></SPAN></TD>';
+			inner += '<TD class="td__super"><SPAN id="addCar' + c + '"></SPAN></TD>';
 		}
-		inner += '<TD class="tdColumn">&#160;</TD>';
+		inner += '<TD class="td__column">&#160;</TD>';
 		inner += '</TR>';
 
 		inner += '</TABLE>';

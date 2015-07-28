@@ -51,7 +51,7 @@ var UTL = (function() {
 		var block = ['a', 'b', 'c', 'd'];
 		var i, j;
 
-		inner += '<div class="ui-grid-c divNum">';
+		inner += '<div class="ui-grid-c numpad">';
 		for ( i = 0; i < 16; ) {
 			for ( j = 0; j < 4; j++, i++ ) {
 				inner += '<div class="ui-block-' + block[j] + '">';

@@ -77,43 +77,43 @@ var PRO = (function(UTL) {
 		var inner = '<TABLE cellspacing="0" cellpadding="0">';
 
 		inner += '<TR>';
-		inner += '<TD class="tdTitle">multiplicand:&#160;</TD>';
-		inner += '<TD class="tdColumn" colspan="2"></TD>';
-		inner += '<TD class="tdColumn"><SPAN id="muland"></SPAN></TD>';
+		inner += '<TD class="td__title">multiplicand:&#160;</TD>';
+		inner += '<TD class="td__column" colspan="2"></TD>';
+		inner += '<TD class="td__column"><SPAN id="muland"></SPAN></TD>';
 		for ( i = 0; i < max; i++ ) {
-			inner += '<TD class="tdColumn"><SPAN id="muland' + i + '"></SPAN></TD>';
+			inner += '<TD class="td__column"><SPAN id="muland' + i + '"></SPAN></TD>';
 		}
-		inner += '<TD class="tdColumn"></TD>';
+		inner += '<TD class="td__column"></TD>';
 		inner += '</TR>';
 
 		inner += '<TR>';
-		inner += '<TD class="tdTitle">multiplier:&#160;</TD>';
-		inner += '<TD class="tdColUnder" colspan="2">&times;&#160;</TD>';
-		inner += '<TD class="tdColUnder"><SPAN id="mulier"></SPAN></TD>';
+		inner += '<TD class="td__title">multiplier:&#160;</TD>';
+		inner += '<TD class="td__column--under" colspan="2">&times;&#160;</TD>';
+		inner += '<TD class="td__column--under"><SPAN id="mulier"></SPAN></TD>';
 		for ( i = 0; i < max; i++ ) {
-			inner += '<TD class="tdColUnder">&#160;&#160;</TD>';
+			inner += '<TD class="td__column--under">&#160;&#160;</TD>';
 		}
-		inner += '<TD class="tdColUnder">&#160;</TD>';
+		inner += '<TD class="td__column--under">&#160;</TD>';
 		inner += '</TR>';
 
 		inner += '<TR>';
-		inner += '<TD class="tdTitle">product:&#160;</TD>';
-		inner += '<TD class="tdColumn" colspan="2"><SPAN id="mulRes"></SPAN></TD>';
-		inner += '<TD class="tdColBold"><SPAN id="mulPro">?</SPAN></TD>';
+		inner += '<TD class="td__title">product:&#160;</TD>';
+		inner += '<TD class="td__column" colspan="2"><SPAN id="mulRes"></SPAN></TD>';
+		inner += '<TD class="td__column--bold"><SPAN id="mulPro">?</SPAN></TD>';
 		for ( i = 0; i < max; i++ ) {
-			inner += '<TD class="tdColumn"><SPAN id="mulPro' + i + '"></SPAN></TD>';
+			inner += '<TD class="td__column"><SPAN id="mulPro' + i + '"></SPAN></TD>';
 		}
-		inner += '<TD class="tdColumn"></TD>';
+		inner += '<TD class="td__column"></TD>';
 		inner += '</TR>';
 
 		inner += '<TR id="proCarRow">';
-		inner += '<TD class="tdTitle">carry:&#160;</TD>';
-		inner += '<TD class="tdColumn"></TD>';
-		inner += '<TD class="tdUpper" colspan="2">?</TD>';
+		inner += '<TD class="td__title">carry:&#160;</TD>';
+		inner += '<TD class="td__column"></TD>';
+		inner += '<TD class="td__super" colspan="2">?</TD>';
 		for ( i = 0; i < max; i++ ) {
-			inner += '<TD class="tdUpper"><SPAN id="mulCar' + i + '"></SPAN></TD>';
+			inner += '<TD class="td__super"><SPAN id="mulCar' + i + '"></SPAN></TD>';
 		}
-		inner += '<TD class="tdColumn">&#160;</TD>';
+		inner += '<TD class="td__column">&#160;</TD>';
 		inner += '</TR>';
 
 		inner += '</TABLE>';

@@ -1,6 +1,13 @@
-body,input,button,.ui-btn,table {
-	font-size: large;
+*,.ui-btn {
 	font-family: 'Courier New', monospace;
+}
+
+.ui-header .ui-title {
+	font-size: large;
+}
+
+.ui-bar {
+	padding: 0em .4em;
 }
 
 .ui-field-contain>label {
@@ -12,41 +19,40 @@ body,input,button,.ui-btn,table {
 }
 
 .ui-collapsible-heading .ui-btn {
-	font-size: medium;
 	font-weight: normal;
 }
 
-.divBody {
-	font-size: medium;
+.numpad {
+	margin-top: .2em;
 }
 
-.divNum .ui-btn {
+.numpad .ui-btn {
 	font-size: x-large;
 	height: 49px;
 	padding: 0;
 	margin: 0;
 }
 
-.tdTitle {
+.td__title {
 	font-size: small;
 	text-align: right;
 }
 
-.tdColumn,.tdColUnder,.tdColBold {
+.td__column,.td__column--under,.td__column--bold {
 	font-size: x-large;
 	text-align: right;
 }
 
-.tdUpper {
+.td__super {
 	font-size: large;
 	text-align: center;
 	vertical-align: top;
 }
 
-.tdColUnder {
+.td__column--under {
 	text-decoration: underline;
 }
 
-.tdColBold {
+.td__column--bold {
 	font-weight: bold;
 }
