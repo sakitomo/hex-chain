@@ -11,7 +11,7 @@
 }
 
 .ui-field-contain>label {
-	min-width:11em;
+	min-width:12em;
 }
 
 .ui-field-contain .ui-controlgroup-label,.ui-field-contain .ui-controlgroup-controls {
@@ -20,6 +20,10 @@
 
 .ui-collapsible-heading .ui-btn {
 	font-weight: normal;
+}
+
+.main_menu .ui-btn {
+	font-size: large;
 }
 
 .numpad {
@@ -31,6 +35,14 @@
 	height: 49px;
 	padding: 0;
 	margin: 0;
+}
+
+.cfg__content,.cfg__content--text {
+	font-size: large;
+}
+
+.cfg__content--text {
+	line-height: 2.5em;
 }
 
 .td__title {
