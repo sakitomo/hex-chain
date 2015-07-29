@@ -52,16 +52,25 @@ $(document).on('pagecreate', '#sum', function() {
 var SUM = (function(UTL) {
 	var my = {};
 
-	var max = 4;
-	var row = 4;
+	var Term = function(add, sum, car) {
+		var length = arguments.length;
 
+		this.add = length < 1 ? [] : add;
+		this.sum = length < 2 ? '&#160;' : sum;
+		this.car = length < 3 ? '&#160;' : car;
+
+		while ( this.add.length < row ) {
+			this.add.push('&#160;');
+		}
+	};
+
+	var row = 4;
 	var addend;
 	var numSum;
 	var numCar;
 
-	var arrAdd = new Array(max);
-	var arrSum = new Array(max);
-	var arrCar = new Array(max);
+	var max = 4;
+	var arrExp = new Array(max);
 
 	my.isSleep = true;
 
@@ -130,16 +139,11 @@ var SUM = (function(UTL) {
 	};
 
 	my.initialize = function () {
-		var c, r;
+		var c;
 
 		numCar = 0;
 		for ( c = 0; c < max; c++ ) {
-			arrAdd[c] = new Array(row);
-			for ( r = 0; r < row; r++ ) {
-				arrAdd[c][r] = '&#160;';
-			}
-			arrSum[c] = '&#160;';
-			arrCar[c] = '&#160;';
+			arrExp[c] = new Term();
 		}
 
 		my.isSleep = false;
@@ -171,11 +175,11 @@ var SUM = (function(UTL) {
 
 		for ( c = 0; c < max; c++ ) {
 			for ( r = 0; r < row-1; r++ ) {
-				$("#addend"+r+"_"+c).html(arrAdd[c][r]);
+				$("#addend"+r+"_"+c).html(arrExp[c].add[r]);
 			}
-			$("#addend"+(row-1)+"_"+c).html("&#160;" + arrAdd[c][row-1]);
-			$("#addSum"+c).html(arrSum[c]);
-			$("#addCar"+c).html(arrCar[c]);
+			$("#addend"+(row-1)+"_"+c).html("&#160;" + arrExp[c].add[row-1]);
+			$("#addSum"+c).html(arrExp[c].sum);
+			$("#addCar"+c).html(arrExp[c].car);
 		}
 	};
 
@@ -193,26 +197,16 @@ var SUM = (function(UTL) {
 
 	my.shift = function () {
 		var r;
-		var arr = new Array(row);
+		var arrNew = new Array(row);
 
 		for ( r = 0; r < row; r++ ) {
-			arr[r] = UTL.convert_hex(addend[r]);
+			arrNew[r] = UTL.convert_hex(addend[r]);
 		}
 
-		arrAdd.unshift(arr);
-		arrSum.unshift(UTL.convert_hex(numSum));
-		arrCar.unshift(UTL.convert_hex(numCar));
+		arrExp.unshift(new Term(arrNew, UTL.convert_hex(numSum), UTL.convert_hex(numCar)));
 
-		while ( arrAdd.length > max ) {
-			arrAdd.pop();
-		}
-
-		while ( arrSum.length > max ) {
-			arrSum.pop();
-		}
-
-		while ( arrCar.length > max ) {
-			arrCar.pop();
+		while ( arrExp.length > max ) {
+			arrExp.pop();
 		}
 	};
 

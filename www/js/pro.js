@@ -59,15 +59,22 @@ $(document).on('pagecreate', '#pro', function() {
 var PRO = (function(UTL) {
 	var my = {};
 
+	var Term = function(mul, pro, car) {
+		var length = arguments.length;
+
+		this.mul = length < 1 ? '&#160;' : mul;
+		this.pro = length < 2 ? '&#160;' : pro;
+		this.car = length < 3 ? '&#160;' : car;
+	};
+
 	var mLier = 0;
 	var mCand;
 	var numPro;
 	var numCar;
 
 	var max = 4;
+	var arrExp = new Array(max);
 	var arrMul = new Array(max);
-	var arrPro = new Array(max);
-	var arrCar = new Array(max);
 
 	my.isSleep = true;
 
@@ -128,9 +135,7 @@ var PRO = (function(UTL) {
 		numCar = 0;
 
 		for ( i = 0; i < max; i++ ) {
-			arrMul[i] = '&#160;';
-			arrPro[i] = '&#160;';
-			arrCar[i] = '&#160;';
+			arrExp[i] = new Term();
 		}
 
 		my.isSleep = false;
@@ -156,9 +161,9 @@ var PRO = (function(UTL) {
 		$("#mulPro").html("?");
 
 		for ( i = 0; i < max; i++ ) {
-			$("#muland"+i).html(arrMul[i]);
-			$("#mulPro"+i).html(arrPro[i]);
-			$("#mulCar"+i).html(arrCar[i]);
+			$("#muland"+i).html(arrExp[i].mul);
+			$("#mulPro"+i).html(arrExp[i].pro);
+			$("#mulCar"+i).html(arrExp[i].car);
 		}
 	};
 
@@ -175,20 +180,12 @@ var PRO = (function(UTL) {
 	};
 
 	my.shift = function () {
+		arrExp.unshift(new Term(UTL.convert_hex(mCand), UTL.convert_hex(numPro), UTL.convert_hex(numCar)));
 		arrMul.unshift(UTL.convert_hex(mCand));
-		arrPro.unshift(UTL.convert_hex(numPro));
-		arrCar.unshift(UTL.convert_hex(numCar));
 
-		while ( arrMul.length > max ) {
+		while ( arrExp.length > max ) {
+			arrExp.pop();
 			arrMul.pop();
-		}
-
-		while ( arrPro.length > max ) {
-			arrPro.pop();
-		}
-
-		while ( arrCar.length > max ) {
-			arrCar.pop();
 		}
 	};
 

@@ -6,23 +6,27 @@
 	font-size: large;
 }
 
-.ui-bar {
+.ui-footer {
 	padding: 0em .4em;
 }
 
 .ui-field-contain>label {
-	min-width:12em;
+	min-width: 12em;
 }
 
 .ui-field-contain .ui-controlgroup-label,.ui-field-contain .ui-controlgroup-controls {
-	width:auto;
+	width: auto;
 }
 
 .ui-collapsible-heading .ui-btn {
 	font-weight: normal;
 }
 
-.main_menu .ui-btn {
+h4 {
+	text-align: center;
+}
+
+.menu .ui-btn {
 	font-size: large;
 }
 
@@ -32,7 +36,7 @@
 
 .numpad .ui-btn {
 	font-size: x-large;
-	height: 49px;
+	height: 50px;
 	padding: 0;
 	margin: 0;
 }
@@ -42,7 +46,7 @@
 }
 
 .cfg__content--text {
-	line-height: 2.5em;
+	line-height: 2.5;
 }
 
 .td__title {
