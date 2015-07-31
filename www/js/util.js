@@ -39,7 +39,7 @@ var UTL = (function() {
 		var letter = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 		if (dec >= 10) {
-			return hex[dec-10];
+			return letter[dec-10];
 		} else {
 			return dec;
 		}
@@ -50,7 +50,7 @@ var UTL = (function() {
 		var i;
 
 		for ( i = 0; i < 6; i++ ) {
-			if (hex == digit[i]) {
+			if (hex == letter[i]) {
 				return i + 10;
 			}
 		}
