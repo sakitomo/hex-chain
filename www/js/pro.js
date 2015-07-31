@@ -33,6 +33,10 @@ $(document).on('pagecreate', '#pro', function() {
 		PRO.calculate();
 		PRO.display();
 	});
+	$("#proUndo").tap(function(){
+		PRO.undo();
+		PRO.display();
+	});
 	$("#proCfg").click(function(){
 		$("#clpsLier").collapsible("collapse");
 	});
@@ -131,14 +135,14 @@ var PRO = (function(UTL) {
 	my.initialize = function (lier) {
 		var i;
 
+		my.isSleep = false;
+
 		mLier = arguments.length < 1 ? UTL.random_unique(2, [UTL.convert_hex(mLier)]) : lier;
 		numCar = 0;
 
 		for ( i = 0; i < max; i++ ) {
 			arrExp[i] = new Term();
 		}
-
-		my.isSleep = false;
 	};
 
 	my.calculate = function () {
@@ -186,6 +190,21 @@ var PRO = (function(UTL) {
 		while ( arrExp.length > max ) {
 			arrExp.pop();
 			arrMul.pop();
+		}
+	};
+
+	my.undo = function () {
+		my.isSleep = false;
+
+		if (arrExp[0].mul != '&#160;') {
+			mCand = UTL.convert_to_dec(arrExp[0].mul);
+			numPro = UTL.convert_to_dec(arrExp[0].pro);
+			numCar = UTL.convert_to_dec(arrExp[0].car);
+
+			arrExp.push(new Term());
+			arrMul.push(0);
+			arrExp.shift();
+			arrMul.shift();
 		}
 	};
 

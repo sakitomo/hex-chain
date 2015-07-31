@@ -36,13 +36,25 @@ var UTL = (function() {
 	};
 
 	my.convert_hex = function (dec) {
-		var hex = ['A', 'B', 'C', 'D', 'E', 'F'];
+		var letter = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 		if (dec >= 10) {
 			return hex[dec-10];
 		} else {
 			return dec;
 		}
+	};
+
+	my.convert_to_dec = function (hex) {
+		var letter = ['A', 'B', 'C', 'D', 'E', 'F'];
+		var i;
+
+		for ( i = 0; i < 6; i++ ) {
+			if (hex == digit[i]) {
+				return i + 10;
+			}
+		}
+		return hex * 1;
 	};
 
 
