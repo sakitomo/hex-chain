@@ -128,3 +128,38 @@ var UTL = (function() {
 
 	return my;
 }());
+
+
+var FixedArray = function(size) {
+	this.arr = new Array();
+	this.capacity = arguments.length < 1 ? 1 : size;
+};
+FixedArray.prototype = {
+	length: function() {
+		return this.arr.length;
+	},
+	at: function(i) {
+		return i < this.arr.length ? this.arr[i] : undefined;
+	},
+	push: function(item) {
+		this.arr.push(item);
+		if (this.arr.length > this.capacity) {
+			this.arr.shift();
+		}
+	},
+	pop: function() {
+		return this.arr.pop();
+	},
+	unshift: function(item) {
+		this.arr.unshift(item);
+		if (this.arr.length > this.capacity) {
+			this.arr.pop();
+		}
+	},
+	shift: function() {
+		return this.arr.shift();
+	},
+	clear: function() {
+		this.arr = new Array();
+	}
+};

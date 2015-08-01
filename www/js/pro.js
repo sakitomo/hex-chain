@@ -10,9 +10,7 @@ $(document).on('pagecreate', '#pro', function() {
 	UTL.config_common($("#proCommon"));
 
 	PRO.generate();
-	PRO.initialize();
-	PRO.calculate();
-	PRO.display();
+	PRO.new_game();
 
 	$("#proPad .ui-btn").tap(function(e){
 		if ( !PRO.isSleep && PRO.verify($(this).val()) ) {
@@ -20,6 +18,7 @@ $(document).on('pagecreate', '#pro', function() {
 			setTimeout( function(){
 				if ( PRO.isSleep ) {
 					PRO.do();
+					PRO.isSleep = false;
 					$("#proUndo").removeClass("ui-state-disabled");
 				}
 			}, 1000);
@@ -27,17 +26,19 @@ $(document).on('pagecreate', '#pro', function() {
 		e.preventDefault();
 	});
 	$("#proGen").tap(function(){
-		PRO.initialize();
-		PRO.calculate();
-		PRO.display();
+		PRO.isSleep = false;
+		PRO.new_game();
+		$("#proUndo,#proRedo").addClass("ui-state-disabled");
 	});
 	$("#proUndo").tap(function(){
+		PRO.isSleep = false;
 		if ( !PRO.undo() ) {
 			$("#proUndo").addClass("ui-state-disabled");
 		}
 		$("#proRedo").removeClass("ui-state-disabled");
 	});
 	$("#proRedo").tap(function(){
+		PRO.isSleep = false;
 		if ( !PRO.redo() ) {
 			$("#proRedo").addClass("ui-state-disabled");
 		}
@@ -47,10 +48,10 @@ $(document).on('pagecreate', '#pro', function() {
 		$("#clpsLier").collapsible("collapse");
 	});
 	$("#proPadLier .ui-btn").tap(function(e){
-		PRO.initialize($(this).val());
-		PRO.calculate();
-		PRO.display();
+		PRO.isSleep = false;
+		PRO.new_game($(this).val());
 		window.history.back();
+		$("#proUndo,#proRedo").addClass("ui-state-disabled");
 		e.preventDefault();
 	});
 	$("#help_mode").change(function(){
@@ -64,41 +65,6 @@ $(document).on('pagecreate', '#pro', function() {
 		UTL.randomize_pad("#proPad", $("#rand_mode").prop("checked"));
 	});
 });
-
-
-var FixedArray = function(size) {
-	this.arr = new Array();
-	this.capacity = arguments.length < 1 ? 1 : size;
-};
-FixedArray.prototype = {
-	length: function() {
-		return this.arr.length;
-	},
-	at: function(i) {
-		return i < this.arr.length ? this.arr[i] : undefined;
-	},
-	push: function(item) {
-		this.arr.push(item);
-		if (this.arr.length > this.capacity) {
-			this.arr.shift();
-		}
-	},
-	pop: function() {
-		return this.arr.pop();
-	},
-	unshift: function(item) {
-		this.arr.unshift(item);
-		if (this.arr.length > this.capacity) {
-			this.arr.pop();
-		}
-	},
-	shift: function() {
-		return this.arr.shift();
-	},
-	clear: function() {
-		this.arr = new Array();
-	}
-};
 
 
 var PRO = (function(UTL) {
@@ -122,7 +88,7 @@ var PRO = (function(UTL) {
 	var arrMul = new FixedArray(max);
 	var arrRedo;
 
-	my.isSleep = true;
+	my.isSleep = false;
 
 
 	my.generate = function () {
@@ -174,12 +140,11 @@ var PRO = (function(UTL) {
 		$("#proHTML").html(inner);
 	};
 
-	my.initialize = function (lier) {
+
+	var initialize = function (lier) {
 		var i;
 
-		my.isSleep = false;
-
-		mLier = arguments.length < 1 ? UTL.random_unique(2, [mLier]) : lier;
+		mLier = lier || UTL.random_unique(2, [mLier]);
 		numCar = 0;
 
 		arrExp.clear();
@@ -187,17 +152,17 @@ var PRO = (function(UTL) {
 		arrRedo = new Array();
 	};
 
-	my.calculate = function (cand) {
+	var calculate = function (cand) {
 		var result;
 
-		mCand = arguments.length < 1 ? UTL.random_unique(1, arrMul.arr) : cand;
+		mCand = cand || UTL.random_unique(1, arrMul.arr);
 		result = mCand * mLier + numCar;
 
 		numPro = result % 16;
 		numCar = Math.floor( result / 16 );
 	};
 
-	my.display = function () {
+	var display = function () {
 		var i, term;
 
 		$("#muland").html(UTL.convert_hex(mCand));
@@ -215,6 +180,7 @@ var PRO = (function(UTL) {
 		}
 	};
 
+
 	my.verify = function (val) {
 		if (val == numPro) {
 			$("#mulRes").html("&#10004;").css("color","green");
@@ -228,40 +194,40 @@ var PRO = (function(UTL) {
 	};
 
 
-	my.encode = function () {
+	var encode = function () {
 		arrExp.unshift(new Term(UTL.convert_hex(mCand), UTL.convert_hex(numPro), UTL.convert_hex(numCar)));
 		arrMul.unshift(mCand);
 	};
 
-	my.decode = function (term) {
+	var decode = function (term) {
 		mCand = UTL.convert_to_dec(term.mul);
 		numPro = UTL.convert_to_dec(term.pro);
 		numCar = UTL.convert_to_dec(term.car);
 	};
 
 
-	my.do = function () {
-		my.isSleep = false;
+	my.new_game = function (val) {
+		initialize(val);
+		calculate();
+		display();
+	};
 
+	my.do = function () {
 		arrRedo = new Array();
 
-		my.encode();
-		my.calculate();
-		my.display();
+		encode();
+		calculate();
+		display();
 	};
 
 	my.undo = function () {
-		var term;
-
-		my.isSleep = false;
-
 		if (arrExp.arr.length > 0) {
-			term = arrExp.shift();
+			var term = arrExp.shift();
 			arrMul.shift();
 			arrRedo.push(mCand);
 
-			my.decode(term);
-			my.display();
+			decode(term);
+			display();
 
 			return arrExp.arr.length > 0;
 		}
@@ -269,12 +235,10 @@ var PRO = (function(UTL) {
 	};
 
 	my.redo = function () {
-		my.isSleep = false;
-
 		if (arrRedo.length > 0) {
-			my.encode();
-			my.calculate(arrRedo.pop());
-			my.display();
+			encode();
+			calculate(arrRedo.pop());
+			display();
 
 			return arrRedo.length > 0;
 		}

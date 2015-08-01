@@ -8,37 +8,48 @@ $(document).on('pagecreate', '#sum', function() {
 	UTL.config_common($("#sumCommon"));
 
 	SUM.generate();
-	SUM.initialize();
-	SUM.calculate();
-	SUM.display();
+	SUM.new_game();
 
 	$("#sumPad .ui-btn").tap(function(e){
 		if ( !SUM.isSleep && SUM.verify($(this).val()) ) {
 			SUM.isSleep = true;
 			setTimeout( function(){
 				if ( SUM.isSleep ) {
-					SUM.shift();
-					SUM.calculate();
-					SUM.display();
+					SUM.do();
 					SUM.isSleep = false;
+					$("#sumUndo").removeClass("ui-state-disabled");
 				}
 			}, 1000);
 		}
 		e.preventDefault();
 	});
 	$("#sumGen").tap(function(){
-		SUM.initialize();
-		SUM.calculate();
-		SUM.display();
+		SUM.isSleep = false;
+		SUM.new_game();
+		$("#sumUndo,#sumRedo").addClass("ui-state-disabled");
+	});
+	$("#sumUndo").tap(function(){
+		SUM.isSleep = false;
+		if ( !SUM.undo() ) {
+			$("#sumUndo").addClass("ui-state-disabled");
+		}
+		$("#sumRedo").removeClass("ui-state-disabled");
+	});
+	$("#sumRedo").tap(function(){
+		SUM.isSleep = false;
+		if ( !SUM.redo() ) {
+			$("#sumRedo").addClass("ui-state-disabled");
+		}
+		$("#sumUndo").removeClass("ui-state-disabled");
 	});
 	$("#row_size").change(function(){
 		SUM.set_row($("#row_size").val());
 		SUM.generate();
 		SUM.validate_help_mode();
-		SUM.initialize();
-		SUM.calculate();
-		SUM.display();
+		SUM.isSleep = false;
+		SUM.new_game();
 		window.history.back();
+		$("#sumUndo,#sumRedo").addClass("ui-state-disabled");
 	});
 	$("#help_mode").change(function(){
 		SUM.validate_help_mode();
@@ -70,9 +81,10 @@ var SUM = (function(UTL) {
 	var numCar;
 
 	var max = 4;
-	var arrExp = new Array(max);
+	var arrExp = new FixedArray(max);
+	var arrRedo;
 
-	my.isSleep = true;
+	my.isSleep = false;
 
 
 	my.set_row = function (size) {
@@ -138,24 +150,32 @@ var SUM = (function(UTL) {
 		$("#sumHTML").html(inner);
 	};
 
-	my.initialize = function () {
+
+	var initialize = function () {
 		var c;
 
 		numCar = 0;
-		for ( c = 0; c < max; c++ ) {
-			arrExp[c] = new Term();
-		}
+
+		arrExp.clear();
+		arrRedo = new Array();
 
 		my.isSleep = false;
 	};
 
-	my.calculate = function () {
+	var calculate = function (end) {
 		var r;
 		var result = numCar;
 
-		addend = new Array(row);
+		if ( end ) {
+			addend = end;
+		} else {
+			addend = new Array(row);
+			for ( r = 0; r < row; r++ ) {
+				addend[r] = UTL.random_digit(1);
+			}
+		}
+
 		for ( r = 0; r < row; r++ ) {
-			addend[r] = UTL.random_digit(1);
 			result += addend[r];
 		}
 
@@ -163,8 +183,8 @@ var SUM = (function(UTL) {
 		numCar = Math.floor( result / 16 );
 	};
 
-	my.display = function () {
-		var c, r;
+	var display = function () {
+		var c, r, term;
 
 		for ( r = 0; r < row; r++ ) {
 			$("#addend"+r).html(UTL.convert_hex(addend[r]));
@@ -174,14 +194,17 @@ var SUM = (function(UTL) {
 		$("#addSum").html("?");
 
 		for ( c = 0; c < max; c++ ) {
+			term = arrExp.at(c) || new Term();
+
 			for ( r = 0; r < row-1; r++ ) {
-				$("#addend"+r+"_"+c).html(arrExp[c].add[r]);
+				$("#addend"+r+"_"+c).html(term.add[r]);
 			}
-			$("#addend"+(row-1)+"_"+c).html("&#160;" + arrExp[c].add[row-1]);
-			$("#addSum"+c).html(arrExp[c].sum);
-			$("#addCar"+c).html(arrExp[c].car);
+			$("#addend"+(row-1)+"_"+c).html("&#160;" + term.add[row-1]);
+			$("#addSum"+c).html(term.sum);
+			$("#addCar"+c).html(term.car);
 		}
 	};
+
 
 	my.verify = function (val) {
 		if ( val == numSum ) {
@@ -195,7 +218,8 @@ var SUM = (function(UTL) {
 		}
 	};
 
-	my.shift = function () {
+
+	var encode = function () {
 		var r;
 		var arrNew = new Array(row);
 
@@ -204,10 +228,57 @@ var SUM = (function(UTL) {
 		}
 
 		arrExp.unshift(new Term(arrNew, UTL.convert_hex(numSum), UTL.convert_hex(numCar)));
+	};
 
-		while ( arrExp.length > max ) {
-			arrExp.pop();
+	var decode = function (term) {
+		var r;
+
+		addend = new Array(row);
+		for ( r = 0; r < row; r++ ) {
+			addend[r] = UTL.convert_to_dec(term.add[r]);
 		}
+
+		numSum = UTL.convert_to_dec(term.sum);
+		numCar = UTL.convert_to_dec(term.car);
+	};
+
+
+	my.new_game = function () {
+		initialize();
+		calculate();
+		display();
+	};
+
+	my.do = function () {
+		arrRedo = new Array();
+
+		encode();
+		calculate();
+		display();
+	};
+
+	my.undo = function () {
+		if (arrExp.arr.length > 0) {
+			var term = arrExp.shift();
+			arrRedo.push(addend);
+
+			decode(term);
+			display();
+
+			return arrExp.arr.length > 0;
+		}
+		return false;
+	};
+
+	my.redo = function () {
+		if (arrRedo.length > 0) {
+			encode();
+			calculate(arrRedo.pop());
+			display();
+
+			return arrRedo.length > 0;
+		}
+		return false;
 	};
 
 
