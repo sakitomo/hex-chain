@@ -127,7 +127,7 @@ var SUM = (function(UTL) {
 
 		inner += '<TR>';
 		inner += '<TD class="td__title">sum:&#160;</TD>';
-		inner += '<TD class="td__column--symbol" colspan="2"><SPAN id="addRes"></SPAN></TD>';
+		inner += '<TD class="td__symbol" colspan="2"><SPAN id="addRes"></SPAN></TD>';
 		inner += '<TD class="td__column--bold"><SPAN id="addSum">?</SPAN></TD>';
 		for ( c = 0; c < max; c++ ) {
 			inner += '<TD class="td__column"><SPAN id="addSum' + c + '"></SPAN></TD>';
