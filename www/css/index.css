@@ -66,6 +66,11 @@ h4 {
 	vertical-align: top;
 }
 
+.td__symbol {
+	font-size: large;
+	text-align: right;
+}
+
 .td__column--under {
 	text-decoration: underline;
 }

@@ -19,10 +19,8 @@ $(document).on('pagecreate', '#pro', function() {
 			PRO.isSleep = true;
 			setTimeout( function(){
 				if ( PRO.isSleep ) {
-					PRO.shift();
-					PRO.calculate();
-					PRO.display();
-					PRO.isSleep = false;
+					PRO.do();
+					$("#proUndo").removeClass("ui-state-disabled");
 				}
 			}, 1000);
 		}
@@ -34,8 +32,16 @@ $(document).on('pagecreate', '#pro', function() {
 		PRO.display();
 	});
 	$("#proUndo").tap(function(){
-		PRO.undo();
-		PRO.display();
+		if ( !PRO.undo() ) {
+			$("#proUndo").addClass("ui-state-disabled");
+		}
+		$("#proRedo").removeClass("ui-state-disabled");
+	});
+	$("#proRedo").tap(function(){
+		if ( !PRO.redo() ) {
+			$("#proRedo").addClass("ui-state-disabled");
+		}
+		$("#proUndo").removeClass("ui-state-disabled");
 	});
 	$("#proCfg").click(function(){
 		$("#clpsLier").collapsible("collapse");
@@ -60,6 +66,41 @@ $(document).on('pagecreate', '#pro', function() {
 });
 
 
+var FixedArray = function(size) {
+	this.arr = new Array();
+	this.capacity = arguments.length < 1 ? 1 : size;
+};
+FixedArray.prototype = {
+	length: function() {
+		return this.arr.length;
+	},
+	at: function(i) {
+		return i < this.arr.length ? this.arr[i] : undefined;
+	},
+	push: function(item) {
+		this.arr.push(item);
+		if (this.arr.length > this.capacity) {
+			this.arr.shift();
+		}
+	},
+	pop: function() {
+		return this.arr.pop();
+	},
+	unshift: function(item) {
+		this.arr.unshift(item);
+		if (this.arr.length > this.capacity) {
+			this.arr.pop();
+		}
+	},
+	shift: function() {
+		return this.arr.shift();
+	},
+	clear: function() {
+		this.arr = new Array();
+	}
+};
+
+
 var PRO = (function(UTL) {
 	var my = {};
 
@@ -77,8 +118,9 @@ var PRO = (function(UTL) {
 	var numCar;
 
 	var max = 4;
-	var arrExp = new Array(max);
-	var arrMul = new Array(max);
+	var arrExp = new FixedArray(max);
+	var arrMul = new FixedArray(max);
+	var arrRedo;
 
 	my.isSleep = true;
 
@@ -109,7 +151,7 @@ var PRO = (function(UTL) {
 
 		inner += '<TR>';
 		inner += '<TD class="td__title">product:&#160;</TD>';
-		inner += '<TD class="td__column" colspan="2"><SPAN id="mulRes"></SPAN></TD>';
+		inner += '<TD class="td__symbol" colspan="2"><SPAN id="mulRes"></SPAN></TD>';
 		inner += '<TD class="td__column--bold"><SPAN id="mulPro">?</SPAN></TD>';
 		for ( i = 0; i < max; i++ ) {
 			inner += '<TD class="td__column"><SPAN id="mulPro' + i + '"></SPAN></TD>';
@@ -137,18 +179,18 @@ var PRO = (function(UTL) {
 
 		my.isSleep = false;
 
-		mLier = arguments.length < 1 ? UTL.random_unique(2, [UTL.convert_hex(mLier)]) : lier;
+		mLier = arguments.length < 1 ? UTL.random_unique(2, [mLier]) : lier;
 		numCar = 0;
 
-		for ( i = 0; i < max; i++ ) {
-			arrExp[i] = new Term();
-		}
+		arrExp.clear();
+		arrMul.clear();
+		arrRedo = new Array();
 	};
 
-	my.calculate = function () {
+	my.calculate = function (cand) {
 		var result;
 
-		mCand = UTL.random_unique(1, arrMul);
+		mCand = arguments.length < 1 ? UTL.random_unique(1, arrMul.arr) : cand;
 		result = mCand * mLier + numCar;
 
 		numPro = result % 16;
@@ -156,7 +198,7 @@ var PRO = (function(UTL) {
 	};
 
 	my.display = function () {
-		var i;
+		var i, term;
 
 		$("#muland").html(UTL.convert_hex(mCand));
 		$("#mulier").html(UTL.convert_hex(mLier));
@@ -165,9 +207,11 @@ var PRO = (function(UTL) {
 		$("#mulPro").html("?");
 
 		for ( i = 0; i < max; i++ ) {
-			$("#muland"+i).html(arrExp[i].mul);
-			$("#mulPro"+i).html(arrExp[i].pro);
-			$("#mulCar"+i).html(arrExp[i].car);
+			term = arrExp.at(i) || new Term();
+
+			$("#muland"+i).html(term.mul);
+			$("#mulPro"+i).html(term.pro);
+			$("#mulCar"+i).html(term.car);
 		}
 	};
 
@@ -183,29 +227,58 @@ var PRO = (function(UTL) {
 		}
 	};
 
-	my.shift = function () {
-		arrExp.unshift(new Term(UTL.convert_hex(mCand), UTL.convert_hex(numPro), UTL.convert_hex(numCar)));
-		arrMul.unshift(UTL.convert_hex(mCand));
 
-		while ( arrExp.length > max ) {
-			arrExp.pop();
-			arrMul.pop();
-		}
+	my.encode = function () {
+		arrExp.unshift(new Term(UTL.convert_hex(mCand), UTL.convert_hex(numPro), UTL.convert_hex(numCar)));
+		arrMul.unshift(mCand);
+	};
+
+	my.decode = function (term) {
+		mCand = UTL.convert_to_dec(term.mul);
+		numPro = UTL.convert_to_dec(term.pro);
+		numCar = UTL.convert_to_dec(term.car);
+	};
+
+
+	my.do = function () {
+		my.isSleep = false;
+
+		arrRedo = new Array();
+
+		my.encode();
+		my.calculate();
+		my.display();
 	};
 
 	my.undo = function () {
+		var term;
+
 		my.isSleep = false;
 
-		if (arrExp[0].mul != '&#160;') {
-			mCand = UTL.convert_to_dec(arrExp[0].mul);
-			numPro = UTL.convert_to_dec(arrExp[0].pro);
-			numCar = UTL.convert_to_dec(arrExp[0].car);
-
-			arrExp.push(new Term());
-			arrMul.push(0);
-			arrExp.shift();
+		if (arrExp.arr.length > 0) {
+			term = arrExp.shift();
 			arrMul.shift();
+			arrRedo.push(mCand);
+
+			my.decode(term);
+			my.display();
+
+			return arrExp.arr.length > 0;
 		}
+		return false;
+	};
+
+	my.redo = function () {
+		my.isSleep = false;
+
+		if (arrRedo.length > 0) {
+			my.encode();
+			my.calculate(arrRedo.pop());
+			my.display();
+
+			return arrRedo.length > 0;
+		}
+		return false;
 	};
 
 

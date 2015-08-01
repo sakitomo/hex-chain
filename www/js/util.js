@@ -22,10 +22,9 @@ var UTL = (function() {
 
 		do {
 			digit = my.random_digit(min);
-			hex = my.convert_hex(digit);
 
 			for ( i = 0; i < arr.length; i++ ) {
-				if ( hex == arr[i] ) {
+				if ( digit == arr[i] ) {
 					digit = 0;
 					break;
 				}
@@ -103,10 +102,9 @@ var UTL = (function() {
 			this.id = id;
 			this.label = label;
 			this.checked = checked;
-
-			this.propChecked = function() {
-				return this.checked ? ' checked' : '';
-			};
+		};
+		Field.prototype.propChecked = function() {
+			return this.checked ? ' checked' : '';
 		};
 
 		var fields = [
