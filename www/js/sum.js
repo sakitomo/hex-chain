@@ -107,11 +107,11 @@ var SUM = (function(UTL) {
 			inner += '<TR>';
 			inner += '<TD class="td__title">addend ' + (r+1) + ':&#160;</TD>';
 			inner += '<TD class="td__column" colspan="2"></TD>';
-			inner += '<TD class="td__column"><SPAN id="addend' + r + '"></SPAN></TD>';
+			inner += '<TD class="td__column" id="tdline"><SPAN id="addend' + r + '"></SPAN></TD>';
 			for ( c = 0; c < max; c++ ) {
 				inner += '<TD class="td__column"><SPAN id="addend' + r + '_' + c + '"></SPAN></TD>';
 			}
-			inner += '<TD class="td__column">&#160;</TD>';
+			inner += '<TD class="td__column"></TD>';
 			inner += '</TR>';
 		}
 
@@ -127,7 +127,7 @@ var SUM = (function(UTL) {
 
 		inner += '<TR>';
 		inner += '<TD class="td__title">sum:&#160;</TD>';
-		inner += '<TD class="td__column" colspan="2"><SPAN id="addRes"></SPAN></TD>';
+		inner += '<TD class="td__column--symbol" colspan="2"><SPAN id="addRes"></SPAN></TD>';
 		inner += '<TD class="td__column--bold"><SPAN id="addSum">?</SPAN></TD>';
 		for ( c = 0; c < max; c++ ) {
 			inner += '<TD class="td__column"><SPAN id="addSum' + c + '"></SPAN></TD>';
@@ -152,8 +152,6 @@ var SUM = (function(UTL) {
 
 
 	var initialize = function () {
-		var c;
-
 		numCar = 0;
 
 		arrExp.clear();
@@ -164,7 +162,7 @@ var SUM = (function(UTL) {
 
 	var calculate = function (end) {
 		var r;
-		var result = numCar;
+		var result;
 
 		if ( end ) {
 			addend = end;
@@ -175,16 +173,15 @@ var SUM = (function(UTL) {
 			}
 		}
 
-		for ( r = 0; r < row; r++ ) {
-			result += addend[r];
-		}
+		result = addend.reduce(function(x, y) { return x + y; }) + numCar;
 
 		numSum = result % 16;
 		numCar = Math.floor( result / 16 );
 	};
 
 	var display = function () {
-		var c, r, term;
+		var c, r;
+		var term;
 
 		for ( r = 0; r < row; r++ ) {
 			$("#addend"+r).html(UTL.convert_hex(addend[r]));
@@ -212,7 +209,7 @@ var SUM = (function(UTL) {
 			$("#addSum").html(UTL.convert_hex(val));
 			return true;
 		} else {
-			$("#addRes").html("&#10005;").css("color","red");
+			$("#addRes").html("&#10006;").css("color","red");
 			$("#addSum").html(UTL.convert_hex(val));
 			return false;
 		}
@@ -220,24 +217,11 @@ var SUM = (function(UTL) {
 
 
 	var encode = function () {
-		var r;
-		var arrNew = new Array(row);
-
-		for ( r = 0; r < row; r++ ) {
-			arrNew[r] = UTL.convert_hex(addend[r]);
-		}
-
-		arrExp.unshift(new Term(arrNew, UTL.convert_hex(numSum), UTL.convert_hex(numCar)));
+		arrExp.unshift(new Term(addend.map(UTL.convert_hex), UTL.convert_hex(numSum), UTL.convert_hex(numCar)));
 	};
 
 	var decode = function (term) {
-		var r;
-
-		addend = new Array(row);
-		for ( r = 0; r < row; r++ ) {
-			addend[r] = UTL.convert_to_dec(term.add[r]);
-		}
-
+		addend = term.add.map(UTL.convert_to_dec);
 		numSum = UTL.convert_to_dec(term.sum);
 		numCar = UTL.convert_to_dec(term.car);
 	};
@@ -258,8 +242,10 @@ var SUM = (function(UTL) {
 	};
 
 	my.undo = function () {
+		var term;
+
 		if (arrExp.arr.length > 0) {
-			var term = arrExp.shift();
+			term = arrExp.shift();
 			arrRedo.push(addend);
 
 			decode(term);

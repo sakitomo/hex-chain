@@ -50,14 +50,17 @@ h4 {
 	line-height: 2.5;
 }
 
+table {
+	text-align: right;
+	line-height: 1.1;
+}
+
 .td__title {
 	font-size: small;
-	text-align: right;
 }
 
 .td__column,.td__column--under,.td__column--bold {
 	font-size: x-large;
-	text-align: right;
 }
 
 .td__super {
@@ -68,7 +71,6 @@ h4 {
 
 .td__symbol {
 	font-size: large;
-	text-align: right;
 }
 
 .td__column--under {

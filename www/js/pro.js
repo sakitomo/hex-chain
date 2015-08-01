@@ -142,8 +142,6 @@ var PRO = (function(UTL) {
 
 
 	var initialize = function (lier) {
-		var i;
-
 		mLier = lier || UTL.random_unique(2, [mLier]);
 		numCar = 0;
 
@@ -163,7 +161,8 @@ var PRO = (function(UTL) {
 	};
 
 	var display = function () {
-		var i, term;
+		var i;
+		var term;
 
 		$("#muland").html(UTL.convert_hex(mCand));
 		$("#mulier").html(UTL.convert_hex(mLier));
@@ -187,7 +186,7 @@ var PRO = (function(UTL) {
 			$("#mulPro").html(UTL.convert_hex(val));
 			return true;
 		} else {
-			$("#mulRes").html("&#10005;").css("color","red");
+			$("#mulRes").html("&#10006;").css("color","red");
 			$("#mulPro").html(UTL.convert_hex(val));
 			return false;
 		}
@@ -221,8 +220,10 @@ var PRO = (function(UTL) {
 	};
 
 	my.undo = function () {
+		var term;
+
 		if (arrExp.arr.length > 0) {
-			var term = arrExp.shift();
+			term = arrExp.shift();
 			arrMul.shift();
 			arrRedo.push(mCand);
 
