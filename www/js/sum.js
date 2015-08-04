@@ -18,6 +18,7 @@ $(document).on('pagecreate', '#sum', function() {
 					SUM.do();
 					SUM.isSleep = false;
 					$("#sumUndo").removeClass("ui-state-disabled");
+					$("#sumRedo").addClass("ui-state-disabled");
 				}
 			}, 1000);
 		}

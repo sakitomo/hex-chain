@@ -20,6 +20,7 @@ $(document).on('pagecreate', '#pro', function() {
 					PRO.do();
 					PRO.isSleep = false;
 					$("#proUndo").removeClass("ui-state-disabled");
+					$("#proRedo").addClass("ui-state-disabled");
 				}
 			}, 1000);
 		}
