@@ -153,6 +153,7 @@ var SUM = (function(UTL) {
 
 
 	var initialize = function () {
+		addend = new Array(row);
 		numCar = 0;
 
 		arrExp.clear();
@@ -165,15 +166,13 @@ var SUM = (function(UTL) {
 		var r;
 		var result;
 
-		if ( end ) {
-			addend = end;
-		} else {
-			addend = new Array(row);
+		if ( !end ) {
+			end = new Array(row);
 			for ( r = 0; r < row; r++ ) {
-				addend[r] = UTL.random_digit(1);
+				end[r] = UTL.random_unique(1, [addend[0]]);
 			}
 		}
-
+		addend = end;
 		result = addend.reduce(function(x, y) { return x + y; }) + numCar;
 
 		numSum = result % 16;
