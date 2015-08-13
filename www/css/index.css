@@ -51,6 +51,7 @@ h4 {
 }
 
 table {
+	margin: auto;
 	text-align: right;
 	line-height: 1.1;
 }
